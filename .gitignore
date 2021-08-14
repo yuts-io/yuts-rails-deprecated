@@ -36,3 +36,5 @@ yarn-debug.log*
 .yarn-integrity
 
 /db/ct-data/*
+
+/config/initializers/omniauth.rb
