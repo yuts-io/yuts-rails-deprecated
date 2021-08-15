@@ -108,6 +108,27 @@ class Course < ApplicationRecord
         end
     end
         
+    def season_to_str(season) 
+        season_str = String(season)
+    
+        year = season_str[0...4]
+    
+        season_code = season_str[4...6]
+   
+    
+        if (season_code == "01") 
+            semester = "Spring"
+        
+        elsif (season_code == "02") 
+            semester = "Summer"
+         
+        else 
+            semester = "Fall"
+        
+        end
+        return semester + " " + year
+    end
+    
     
     
 

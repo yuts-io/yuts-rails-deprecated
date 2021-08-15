@@ -1,0 +1,279 @@
+<script>
+    const labels = document.querySelector('thead#table-head')
+
+    const title = document.querySelector('h1#table-title')
+
+
+    title.textContent = '<%= @course.title %>'
+
+    labels.remove()
+</script>
+
+<div class="m-auto row">
+    <div class="px-0 mt-0 mb-3 col-md-5">
+        <div class="mx-auto row">
+            <div><%= @course.description %><wbr></div>
+        </div>
+        <div class="m-auto py-2 mt-3 row">
+            <div class="card">
+                
+                <div class="card-body" id="back-btn-container">
+                    <h5 class="card-title"><%= @course.course_code %> Stats<span class="pe-2 mt-2" style="float: right; font-size: .85rem"> Overall Rating: <%= @course.cleanOneStat("average_rating") %></span></h5>
+                    <hr class="mt-1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                Gut Index
+                            </div>
+                            <div class="col">
+                                Prof Rating
+                            </div>
+                            <div class="col">
+                                Work Rating
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <%= @course.cleanOneStat("average_rating") %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("average_professor") %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("average_workload") %>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                Gut Rank
+                            </div>
+                            <div class="col">
+                                Prof Rank
+                            </div>
+                            <div class="col">
+                                Work Rank
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <%= @course.cleanOneStat("gut_percentile", true) %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("professor_percentile", true) %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("workload_percentile", true) %>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                Gut Sub Rank
+                            </div>
+                            <div class="col">
+                                Prof Sub Rank
+                            </div>
+                            <div class="col">
+                                Work Sub Rank
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <%= @course.cleanOneStat("gut_percentile_subject", true) %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("professor_percentile_subject", true) %>
+                            </div>
+                            <div class="col">
+                                <%= @course.cleanOneStat("workload_percentile_subject", true) %>
+                            </div>
+                    </div>
+                        <a class="btn-primary btn mt-3" type="button" href="/courses">Back to Catalog</a>
+                    </div>
+                
+                    
+                </div>
+            </div>
+        </div>
+        <div class="m-auto pt-4 pb-2 row">
+            <div class="px-0 col-sm-2 col-2"><span>Syllabus</span></div>
+            <div class="col-sm-4 col-4"><span><%= @course.checkIfBlank("syllabus_url") %></span></div>
+            <div class="px-0 col-sm-2 col-2"><span>Location</span></div>
+            <div class="col-sm-2 col-2"><%= @course.checkIfBlank("location", true) %></div>
+
+        </div>
+        <div class="m-auto py-2 row">
+            <div class="px-0 col-sm-2 col-2"><span>Professor</span></div>
+            <div class="col-sm-4 col-4"><span><%= @course.checkIfBlank("professor_names", true) %></span></div>
+            <div class="px-0 col-sm-2 col-2"><span>Meets</span></div>
+            <div class="col-sm-4 col-4"><%= @course.checkIfBlank("times_summary", true) %></div>
+        </div>
+        <div class="m-auto py-2 row">
+            <div class="px-0 col-sm-2 col-2"><span class="align-middle">Credits</span></div>
+            <div class="col-sm-4 col-4"><span class="align-middle"><%= @course.checkIfBlank("credits") %></span></div>
+            <div class="px-0 col-sm-2 col-2"><span>Enrollment</span></div>
+            <div class="col-sm-4 col-4"><%= @course.checkIfBlank("last_enrollment") %></div>
+        </div>
+    
+        <div class="m-auto py-2 row">
+            
+        </div>
+    </div>
+    <div class="px-0 my-0 col-md-7 justify-content-center">
+        <div class="m-auto pt-4 pb-1 justify-content-end row">
+            <div class="px-0 me-3 text-center col-10" style="flex: 0 0 auto;">
+                <h5><%= @course.season_to_str(@course.season_code) + " Stats" %></h5>
+                <hr>
+            </div>
+        </div>
+        <div class="m-auto pb-1 justify-content-center row">
+            <div class="d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
+        </div>
+        <div class="m-auto py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong>Gut Index</strong>
+                <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("gut_index_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_range") %></div>
+            </div>
+        </div>
+        <div class="m-auto py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong>Professor Rating</strong>
+                <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("average_professor_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_range") %></div>
+            </div>
+        </div>
+        <div class="m-auto py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong>Workload Rating</strong>
+                <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("average_workload_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_range") %></div>
+            </div>
+        </div>
+        <div class="m-auto pt-4 pb-1 justify-content-end row">
+            <div class="px-0 me-3 text-center col-10" style="flex: 0 0 auto;">
+                <h5> <%= @course.subject + " Subject Stats"%></h5>
+                <hr>
+            </div>
+            
+        </div>
+        <div class="m-auto pb-1 justify-content-center row">
+            <div class="d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
+            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
+        </div>
+        <div class="m-auto mt-1 py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong><%= @course.subject%> Gut Index</strong>
+                
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_subject_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_subject_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("gut_index_subject_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_subject_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("gut_index_subject_range") %></div>
+            </div>
+        </div>
+        <div class="m-auto mt-1 py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong><%= @course.subject %> Prof Rating</strong>
+                
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_subject_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_subject_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("average_professor_subject_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_subject_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_professor_subject_range") %></div>
+            </div>
+        </div>
+        <div class="m-auto mt-1 py-1 justify-content-center row">
+            <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
+                <strong><%= @course.subject %> Workload Rating</strong>
+            
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_subject_mean") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_subject_median") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
+                <div><%= @course.cleanOneStat("average_workload_subject_standard_deviation") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_subject_mode") %></div>
+            </div>
+            <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
+                <div><%= @course.cleanOneStat("average_workload_subject_range") %></div>
+            </div>
+        </div>
+    </div>
+    
+</div>

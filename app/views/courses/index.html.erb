@@ -14,7 +14,7 @@
     <tr class="course" id=<%= course.id %>>
         <td><%= course.course_code %></td>
         <td><%= course.title %></td>
-        <td><%= course.professor_names%></td>
+        <td><%= course.checkIfBlank("professor_names", true)%></td>
         <td><%= course.cleanOneStat("gut_index") %></td>
         <td><%= course.classifyGut %></td>
         <td><%= course.cleanOneStat("gut_percentile", true) %></td>
