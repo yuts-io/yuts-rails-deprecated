@@ -8,6 +8,11 @@ class CoursesController < ApplicationController
       @course = Course.find_by(id: params[:id])
     end
 
+    def load 
+      courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).offset(params[:amount])
+      render json: courses
+    end
+
     private
 
     def require_logged_in

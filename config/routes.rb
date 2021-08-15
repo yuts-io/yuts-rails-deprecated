@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/courses/:season/:amount/load_more', to: 'courses#load'
   get 'auth/:provider/callback', to: 'sessions#googleAuth'
   get 'auth/failure', to: redirect('/')
   resources :sessions
