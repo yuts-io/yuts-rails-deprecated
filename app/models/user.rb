@@ -6,4 +6,5 @@ class User < ApplicationRecord
           user.email = auth.info.email
         end
     end
+    
 end

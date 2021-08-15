@@ -4,12 +4,23 @@
         <td><%= course.course_code %></td>
         <td><%= course.title %></td>
         <td><%= course.professor_names%></td>
-        <td><%= course.gut_index %></td>
-        <td><%= course.course_code %></td>
-        <td><%= course.gut_percentile %></td>
-        <td><%= course.title %></td>
-        <td><%= course.title %></td>
-        <td><%= course.title %></td>
+        <td><%= course.cleanOneStat("gut_index") %></td>
+        <td><%= course.classifyGut %></td>
+        <td><%= course.cleanOneStat("gut_percentile", true) %></td>
+        <td><%= course.cleanOneStat("gut_percentile_subject", true)%></td>
+        <td><%= course.cleanOneStat("average_rating") %></td>
+        <td><%= course.cleanOneStat("average_professor") %></td>
+        <td><%= course.classifyProf %></td>
+        <td><%= course.cleanOneStat("professor_percentile", true) %></td>
+        <td><%= course.cleanOneStat("professor_percentile_subject", true) %></td>
+        <td><%= course.cleanOneStat("average_workload") %></td>
+        <td><%= course.classifyWork %></td>
+        <td><%= course.cleanOneStat("workload_percentile", true) %></td>
+        <td><%= course.cleanOneStat("workload_percentile_subject", true) %></td>
+        <td><%= course.cleanOneStat("last_enrollment")%></td>
+
+
+        <td><%= course.combineSkillsAndAreas %></td>
 
     </tr>
 
