@@ -1,6 +1,17 @@
+<script>
+    const body = document.querySelector('div#main-body')
 
+    body.addEventListener('click', event => {
+        
+        if (event.target.matches('tr.course td')) {
+            const tr = event.target.closest('tr.course')
+
+            window.location.replace(`http://127.0.0.1:3000/courses/${tr.id}`)
+        }
+    })
+</script>
 <% @courses.each do |course| %>
-    <tr>
+    <tr class="course" id=<%= course.id %>>
         <td><%= course.course_code %></td>
         <td><%= course.title %></td>
         <td><%= course.professor_names%></td>
