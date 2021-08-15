@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_14_011629) do
+ActiveRecord::Schema.define(version: 2021_08_14_233234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,15 @@ ActiveRecord::Schema.define(version: 2021_08_14_011629) do
     t.float "average_workload_same_professors_subject_standard_deviation"
     t.float "average_workload_same_professors_subject_mode"
     t.float "average_workload_same_professors_subject_range"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "google_token"
+    t.string "google_refresh_token"
   end
 
 end
