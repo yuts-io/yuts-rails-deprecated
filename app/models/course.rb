@@ -128,7 +128,8 @@ class Course < ApplicationRecord
         end
         return semester + " " + year
     end
-    
+
+
     
     
 

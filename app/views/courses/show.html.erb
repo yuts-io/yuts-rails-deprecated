@@ -3,10 +3,11 @@
 
     const title = document.querySelector('h1#table-title')
 
-
     title.textContent = '<%= @course.title %>'
 
+
     labels.remove()
+
 </script>
 
 <div class="m-auto row">
@@ -96,7 +97,19 @@
         </div>
         <div class="m-auto pt-4 pb-2 row">
             <div class="px-0 col-sm-2 col-2"><span>Syllabus</span></div>
-            <div class="col-sm-4 col-4"><span><%= @course.checkIfBlank("syllabus_url") %></span></div>
+            <% if @course.syllabus_url == nil %>
+                <div class="col-sm-4 col-4"><span>N/A</span></div>
+            <% else %>
+                <div class="col-sm-4 col-4">
+                    <a target="_blank" rel="noopener noreferrer" href="<%= @course.syllabus_url %>" class="d-flex">
+                    View Syllabus
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" class="ml-1 my-auto" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                        </svg>
+                    </a>
+                </div>
+            <% end %>
             <div class="px-0 col-sm-2 col-2"><span>Location</span></div>
             <div class="col-sm-2 col-2"><%= @course.checkIfBlank("location", true) %></div>
 
