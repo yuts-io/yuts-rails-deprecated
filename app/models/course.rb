@@ -108,7 +108,7 @@ class Course < ApplicationRecord
         end
     end
         
-    def season_to_str(season) 
+    def self.season_to_str(season) 
         season_str = String(season)
     
         year = season_str[0...4]
@@ -129,6 +129,9 @@ class Course < ApplicationRecord
         return semester + " " + year
     end
 
+    def self.getSeasons 
+        self.pluck("season_code").uniq.sort.reverse
+    end
 
     
     
