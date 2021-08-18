@@ -13,6 +13,10 @@ class CoursesController < ApplicationController
       render json: courses
     end
 
+    def new_season_home
+      @courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(150)
+    end
+
     private
 
     def require_logged_in
