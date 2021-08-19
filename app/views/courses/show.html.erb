@@ -1,11 +1,28 @@
 <script>
     const labels = document.querySelector('thead#table-head')
+    const titleContainer = document.querySelector('div#title-container')
+
 
     const title = document.querySelector('h1#table-title')
 
-    title.textContent = '<%= @course.title %>'
+        const button = document.createElement('a')
+
+    button.innerHTML = '<a class="btn-primary btn btn-sm ms-2 mb-2" type="button" href="/courses">Back to Catalog</a>'
+
+    title.textContent = ''
+
+    title.append(button)
+
+    title.append('<%= @course.title %>')
+
+    const search = document.querySelector('form#searchForm')
+    const dropdown = document.querySelector('div.dropdown')
 
 
+
+
+    dropdown.remove()
+    search.remove()
     labels.remove()
 
 </script>
@@ -87,8 +104,7 @@
                             <div class="col">
                                 <%= @course.cleanOneStat("workload_percentile_subject", true) %>
                             </div>
-                    </div>
-                        <a class="btn-primary btn mt-3" type="button" href="/courses">Back to Catalog</a>
+                        </div>
                     </div>
                 
                     

@@ -36,7 +36,7 @@
 
     const OFFSET = 150
     const body = document.querySelector('div#main-body')
-    const table = document.querySelector('table.table')
+    const table = document.querySelector('tbody#catalog-body')
     const seasons_dropdown = document.querySelector('ul#seasons-btn')
 
     body.addEventListener('click', event => {
@@ -129,7 +129,7 @@
         tr.append(td_areas_and_skills)
 
 
-        table.append(tr)
+        table.appendChild(tr)
     }
 
     // CREATE A TABLE ELEMENT
