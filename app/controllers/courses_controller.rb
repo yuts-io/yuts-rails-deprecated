@@ -1,7 +1,14 @@
 class CoursesController < ApplicationController
     before_action :require_logged_in
     def index
-        @courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
+      # byebug
+      if !params[:filter]
+        @courses = Course.search(params[:search])
+      else
+        # byebug
+        @courses = Course.filter.search(params[:search])
+      end
+
     end
 
     def show

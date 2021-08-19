@@ -304,7 +304,8 @@ var observer = new IntersectionObserver(function(entries) {
 
 
         table.append(spinnerContainer)
-        loadMoreCourses("202103")
+            loadMoreCourses("202103")
+        
         firstView = false
 
         
@@ -315,7 +316,8 @@ var observer = new IntersectionObserver(function(entries) {
 const trArr = document.querySelectorAll('tbody#catalog-body tr')
 
 
-
-observer.observe(trArr[trArr.length-1].querySelector('td'));
+if ('<%= params[:search] %>' == "" && trArr.length === OFFSET) {
+    observer.observe(trArr[trArr.length-1].querySelector('td'));
+}
     
 </script>

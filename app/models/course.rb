@@ -1,4 +1,16 @@
 class Course < ApplicationRecord
+    
+    def self.search(search)
+        if search 
+            where("season_code = 202103 AND (title LIKE ? OR course_code LIKE ? OR professor_names LIKE ?)", "%#{search.titleize}%", "%#{search.upcase}%", "%#{search.titleize}%").order(course_code: :asc)
+        else
+            where("season_code = 202103").order(course_code: :asc).limit(150)
+        end
+    end
+
+    def self.filter
+        where("season_code = 202103 AND gut_index > 70")
+    end
 
     def checkIfBlank(attr, tba=false)
         if self[attr] == "" || self[attr] == nil

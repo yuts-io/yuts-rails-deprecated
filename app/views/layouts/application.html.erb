@@ -30,6 +30,10 @@
                      </div>
                      <div class="card-body">
                         <h5 class="card-title pb-2 border-bottom">Find Guts!</h5>
+                        <form class="form-check form-switch" action="/courses" method="GET">
+                           <input class="form-check-input" name="filter" type="checkbox" onChange="this.form.submit()" id="flexSwitchCheckDefault">
+                           <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                        </form>
                         <p class="card-text mt-3">Ratings are Coursetable ratings</p>
                         <p class="card-text mt-3">The Gut Index is similar to Rotten Tomatoes</p>
                         <p class="card-text mt-3">A higher Gut Index is better</p>
@@ -49,8 +53,8 @@
             <main class="col-md-11 ms-sm-auto col-lg-11 px-md-4 ">
                <div id="title-container" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                   <h1 class="h2" id="table-title" data-id="202103">Fall 2021 Catalog</h1>
-                  <form class="d-flex" id='searchForm' style="width: 70vmin;">
-                     <input id="searchBar" class="form-control me-2" type="search" placeholder="Search the catalog" aria-label="Search" >
+                  <form class="d-flex" id='searchForm' action="/courses" method="GET" style="width: 70vmin;">
+                     <input id="searchBar" name="search" class="form-control me-2" type="search" placeholder="Search the catalog" aria-label="Search" >
                      <button class="btn btn-outline-primary me-2" type="submit">Search</button>
                   </form>
                   <div class="dropdown">
