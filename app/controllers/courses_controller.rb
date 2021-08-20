@@ -25,7 +25,11 @@ class CoursesController < ApplicationController
 
     def search
       # byebug
-      courses = Course.search(params[:search_val])
+      if params[:search_val] != nil
+        courses = Course.search(params[:search_val])
+      else
+        courses = Course.search(nil)
+      end
       render json: courses
     end 
 

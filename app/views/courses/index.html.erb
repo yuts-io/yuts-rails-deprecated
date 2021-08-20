@@ -315,13 +315,24 @@ var observer = new IntersectionObserver(function(entries) {
     
 }, { threshold: [1] });
 
-const trArr = document.querySelectorAll('tbody#catalog-body tr')
+let trArr = document.querySelectorAll('tbody#catalog-body tr')
 
 
-if ('<%= params[:search] %>' == "" && trArr.length === OFFSET) {
+if (document.querySelector('input#searchBar').value === "") {
     observer.observe(trArr[trArr.length-1].querySelector('td'));
 }
 
+
+function startObserve() {
+    observer.unobserve(trArr[trArr.length-1].querySelector('td'))
+    trArr = document.querySelectorAll('tbody#catalog-body tr')
+    firstView = true
+    if (document.querySelector('input#searchBar').value === "") {
+    console.log('<%= params[:search_val]%>')
+
+        observer.observe(trArr[trArr.length-1].querySelector('td'));
+    }
+}
 
 
 function loadCourses(season, value) {
@@ -330,6 +341,9 @@ function loadCourses(season, value) {
     .then(courses => {
 
         courses.forEach(createOneCourse)
+        startObserve()
+        // console.log(trArr[trArr.length-1])
+
         // document.querySelector('tr#spinner-container').remove()
 
     })
@@ -345,6 +359,9 @@ searchBar.addEventListener('submit', event => {
 
     const season = title.dataset.id
     loadCourses(season, searchInput.value)
+
+
+
 
 })
 
