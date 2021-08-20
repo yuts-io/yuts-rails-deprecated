@@ -1,6 +1,6 @@
 
 <% @courses.each do |course| %>
-    <tr class="course" id=<%= course.id %>>
+    <tr class="course" data-id=<%= course.id %>>
         <td><%= course.course_code %></td>
         <td><%= course.title %></td>
         <td><%= course.checkIfBlank("professor_names", true)%></td>
@@ -36,7 +36,7 @@
         if (event.target.matches('tr.course td')) {
             const tr = event.target.closest('tr.course')
 
-            window.location.replace(`http://127.0.0.1:3000/courses/${tr.id}`)
+            window.location.replace(`http://127.0.0.1:3000/courses/${tr.dataset.id}`)
         }
     })
 
@@ -260,6 +260,17 @@ function loadMoreCourses(season) {
         courses.forEach(createOneCourse)
         document.querySelector('tr#spinner-container').remove()
 
+
+
+        seasons_dropdown.addEventListener('click', event => {
+            if (event.target.matches('li.season')) {
+                const season = parseInt(event.target.dataset.id)
+            
+                window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
+            }
+        })
+
+
     })
 }
 
@@ -340,8 +351,48 @@ function loadCourses(season, value) {
         courses.forEach(createOneCourse)
         // restart the observation after new data loaded
         startObserve()
+
+
+        seasons_dropdown.addEventListener('click', event => {
+            if (event.target.matches('li.season')) {
+                const season = parseInt(event.target.dataset.id)
+            
+                window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
+            }
+        })
+
     })
 }
+
+function filterGut() {
+    
+    const searchBar = document.querySelector('input#searchBar')
+    const filter = searchBar.value.toUpperCase()
+    const rows = document.querySelectorAll("tbody#catalog-body tr.course")
+
+    // iterate thru each table row, if the row has a search term in a td
+    // show it, else make its style hidden
+    for (let i = 0; i < rows.length; i++) {
+        // const codeEle = rows[i].getElementsByTagName("td")[0]
+        // const titleEle = rows[i].getElementsByTagName("td")[1]
+        // const profEle = rows[i].getElementsByTagName("td")[2]
+
+        const guttinessEle = rows[i].getElementsByTagName("td")[4]
+
+        // const txtValueCode = codeEle.textContent || codeEle.innerText
+        // const txtValueTitle= titleEle.textContent || titleEle.innerText
+        // const txtValueProf = profEle.textContent || profEle.innerText
+
+        const txtValueGuttiness = guttinessEle.textContent || guttinessEle.innerText
+
+        if (txtValueGuttiness === "Gut") {
+            rows[i].style.display = ""
+        } else {
+            rows[i].style.display = "none"
+        }
+    } 
+}
+
 
 // observe on page load 
 startObserve()
@@ -360,6 +411,15 @@ searchBar.addEventListener('submit', event => {
     const season = title.dataset.id
     loadCourses(season, searchInput.value)
 })
+
+const gutSwitch = document.querySelector('div.form-switch')
+
+gutSwitch.addEventListener('click', event => {
+    filterGut()
+    startObserve()
+
+})
+
 
     
 </script>
