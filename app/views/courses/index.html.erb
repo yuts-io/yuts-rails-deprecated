@@ -43,6 +43,8 @@
     seasons_dropdown.addEventListener('click', event => {
         if (event.target.matches('li.season')) {
             const season = parseInt(event.target.dataset.id)
+
+            
         
             window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
         }

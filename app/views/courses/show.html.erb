@@ -7,9 +7,11 @@
 
         const button = document.createElement('a')
 
-    button.innerHTML = '<a class="btn-primary btn btn-sm ms-2 mb-2" type="button" href="/courses">Back to Catalog</a>'
+    button.innerHTML = '<a class="btn-primary btn btn-sm ms-2 mb-2" type="button" href="/courses/<%= @course.season_code%>/new_season_home">Back to Catalog</a>'
 
     title.textContent = ''
+
+    title.dataset.id = '<%= @course.season_code%>'
 
     title.append(button)
 

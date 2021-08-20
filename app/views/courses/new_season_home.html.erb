@@ -29,9 +29,11 @@
 
 <script>
 
-    const title = document.querySelector('h1#table-title')
+    let titleNew = document.querySelector('h1#table-title')
 
-    title.textContent = '<%= Course.season_to_str(params[:season]) %>' + " Catalog"
+    titleNew.dataset.id = '<%= @courses.first.season_code %>'
+
+    titleNew.textContent = '<%= Course.season_to_str(@courses.first.season_code) %>' + " Catalog"
 
 
     const OFFSET = 150
