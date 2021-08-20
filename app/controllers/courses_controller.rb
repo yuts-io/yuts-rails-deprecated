@@ -23,6 +23,12 @@ class CoursesController < ApplicationController
 
     end
 
+    def search
+      # byebug
+      courses = Course.search(params[:search_val])
+      render json: courses
+    end 
+
     def show
       @course = Course.find_by(id: params[:id])
     end

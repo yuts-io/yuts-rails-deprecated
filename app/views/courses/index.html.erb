@@ -243,6 +243,8 @@ function classifyWork(course) {
 }
 
 
+
+
 // CHANGE RANK NUMS TO ORDINAL
 function ordinal(n) {
     var s = ["th", "st", "nd", "rd"];
@@ -319,5 +321,32 @@ const trArr = document.querySelectorAll('tbody#catalog-body tr')
 if ('<%= params[:search] %>' == "" && trArr.length === OFFSET) {
     observer.observe(trArr[trArr.length-1].querySelector('td'));
 }
+
+
+
+function loadCourses(season, value) {
+    fetch(`http://127.0.0.1:3000/courses/search/${season}/${value}`)
+    .then(r => r.json())
+    .then(courses => {
+
+        courses.forEach(createOneCourse)
+        // document.querySelector('tr#spinner-container').remove()
+
+    })
+}
+const searchBar = document.querySelector('form#searchForm')
+console.log(searchBar)
+searchBar.addEventListener('submit', event => {
+    event.preventDefault()
+
+    table.innerHTML = ""
+    const searchInput = document.querySelector('input#searchBar')
+    const title = document.querySelector('h1#table-title')
+
+    const season = title.dataset.id
+    loadCourses(season, searchInput.value)
+
+})
+
     
 </script>
