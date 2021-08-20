@@ -318,9 +318,6 @@ var observer = new IntersectionObserver(function(entries) {
 let trArr = document.querySelectorAll('tbody#catalog-body tr')
 
 
-if (document.querySelector('input#searchBar').value === "") {
-    observer.observe(trArr[trArr.length-1].querySelector('td'));
-}
 
 
 function startObserve() {
@@ -341,15 +338,18 @@ function loadCourses(season, value) {
     .then(courses => {
 
         courses.forEach(createOneCourse)
+        // restart the observation after new data loaded
         startObserve()
-        // console.log(trArr[trArr.length-1])
-
-        // document.querySelector('tr#spinner-container').remove()
-
     })
 }
+
+// observe on page load 
+startObserve()
+
+// ADD EVENT SEARCH LISTENER
+
 const searchBar = document.querySelector('form#searchForm')
-console.log(searchBar)
+
 searchBar.addEventListener('submit', event => {
     event.preventDefault()
 
@@ -359,10 +359,6 @@ searchBar.addEventListener('submit', event => {
 
     const season = title.dataset.id
     loadCourses(season, searchInput.value)
-
-
-
-
 })
 
     
