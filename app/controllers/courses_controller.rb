@@ -2,12 +2,24 @@ class CoursesController < ApplicationController
     before_action :require_logged_in
     def index
       # byebug
-      if !params[:filter]
-        @courses = Course.search(params[:search])
+
+      if params[:search] != nil
+        session[:search] = params[:search]
+        @courses = Course.search(session[:search])
       else
-        # byebug
-        @courses = Course.filter.search(params[:search])
+        @courses = Course.search(nil)
       end
+
+      if params[:guts_switch]
+        @courses = @courses.where("gut_index > 80").order(course_code: :asc)
+      end
+
+      # byebug
+      
+      
+        # byebug
+        # @courses = @courses.filter_by_gut_index if params[:guts_switch] == "on"
+    
 
     end
 

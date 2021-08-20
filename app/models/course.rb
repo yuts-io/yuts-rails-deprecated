@@ -1,4 +1,5 @@
 class Course < ApplicationRecord
+    scope :filter_by_gut_index, -> { where("gut_index > 80")}
     
     def self.search(search)
         if search 
