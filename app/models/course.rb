@@ -1,11 +1,11 @@
 class Course < ApplicationRecord
     scope :filter_by_gut_index, -> { where("gut_index > 80")}
     
-    def self.search(search)
-        if search 
-            where("season_code = 202103 AND (title LIKE ? OR course_code LIKE ? OR professor_names LIKE ?)", "%#{search.titleize}%", "%#{search.upcase}%", "%#{search.titleize}%").order(course_code: :asc)
+    def self.search(search, season)
+        if search
+            where("season_code = ? AND (title LIKE ? OR course_code LIKE ? OR professor_names LIKE ?)", "#{season}", "%#{search.titleize}%", "%#{search.upcase}%", "%#{search.titleize}%").order(course_code: :asc)
         else
-            where("season_code = 202103").order(course_code: :asc).limit(150)
+            where("season_code = ?", "#{season}").order(course_code: :asc).limit(150)
         end
     end
 

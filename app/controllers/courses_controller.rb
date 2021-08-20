@@ -5,9 +5,9 @@ class CoursesController < ApplicationController
 
       if params[:search] != nil
         session[:search] = params[:search]
-        @courses = Course.search(session[:search])
+        @courses = Course.search(session[:search], "202103")
       else
-        @courses = Course.search(nil)
+        @courses = Course.search(nil, "202103")
       end
 
       if params[:guts_switch]
@@ -26,9 +26,9 @@ class CoursesController < ApplicationController
     def search
       # byebug
       if params[:search_val] != nil
-        courses = Course.search(params[:search_val])
+        courses = Course.search(params[:search_val], params[:season])
       else
-        courses = Course.search(nil)
+        courses = Course.search(nil, params[:season])
       end
       render json: courses
     end 
