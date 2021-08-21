@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get '/courses/search/:season/:search_val', to: 'courses#search'
   get '/courses/search/:season', to: 'courses#search'
   get '/courses/:season/:amount/load_more', to: 'courses#load'
   get 'auth/:provider/callback', to: 'sessions#googleAuth'

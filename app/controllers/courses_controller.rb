@@ -26,9 +26,9 @@ class CoursesController < ApplicationController
     def search
       # byebug
       if params[:search_val] != nil
-        courses = Course.search(params[:search_val], params[:season])
+        courses = Course.search(params[:search_val])
       else
-        courses = Course.search(nil, params[:season])
+        courses = Course.search(nil)
       end
       render json: courses
     end 
@@ -38,12 +38,12 @@ class CoursesController < ApplicationController
     end
 
     def load 
-      courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).offset(params[:amount])
+      courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).offset(500)
       render json: courses
     end
 
     def new_season_home
-      @courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(150)
+      @courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(500)
     end
 
     private

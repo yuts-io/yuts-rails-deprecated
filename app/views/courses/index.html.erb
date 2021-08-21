@@ -26,7 +26,8 @@
 
 <% end %>
 <script>
-    const OFFSET = 1000
+    const OFFSET = 500
+    let gutActive = false
     const body = document.querySelector('div#main-body')
     const table = document.querySelector('tbody#catalog-body')
     const seasons_dropdown = document.querySelector('ul#seasons-btn')
@@ -257,148 +258,16 @@ function ordinal(n) {
 
 
 
-function loadMoreCourses(season, filterGut=false) {
+// LOAD COURSES AFTER OFFSET
+function loadMoreCourses(season) {
     fetch(`http://127.0.0.1:3000/courses/${season}/${OFFSET}/load_more`)
     .then(r => r.json())
     .then(courses => {
-    function filterGut() {
-    
-    const searchBar = document.querySelector('input#searchBar')
-    const filter = searchBar.value.toUpperCase()
-    const rows = document.querySelectorAll("tbody#catalog-body tr.course")
-
-    // iterate thru each table row, if the row has a search term in a td
-    // show it, else make its style hidden
-    for (let i = 0; i < rows.length; i++) {
-        // const codeEle = rows[i].getElementsByTagName("td")[0]
-        // const titleEle = rows[i].getElementsByTagName("td")[1]
-        // const profEle = rows[i].getElementsByTagName("td")[2]
-
-        const guttinessEle = rows[i].getElementsByTagName("td")[4]
-
-        // const txtValueCode = codeEle.textContent || codeEle.innerText
-        // const txtValueTitle= titleEle.textContent || titleEle.innerText
-        // const txtValueProf = profEle.textContent || profEle.innerText
-
-        const txtValueGuttiness = guttinessEle.textContent || guttinessEle.innerText
-
-        if (txtValueGuttiness === "Gut") {
-            rows[i].style.display = ""
-        } else {
-            rows[i].style.display = "none"
-        }
-    } 
-}
-
         courses.forEach(createOneCourse)
-        // document.querySelector('tr#spinner-container').remove()
-
-
-
-        seasons_dropdown.addEventListener('click', event => {
-            if (event.target.matches('li.season')) {
-                const season = parseInt(event.target.dataset.id)
-            
-                window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
-            }
-        })
-        if (filterGut) {
-            filterGut()
-        }
-
     })
 }
 
-const lastTableEle = document.querySelector('tbody#catalog-body').lastElementChild
 
-console.log(lastTableEle)
-
-let firstView = true
-
-var observer = new IntersectionObserver(function(entries) {
-	if((entries[0].isIntersecting === true) && firstView) {
-		console.log('Element is fully visible in screen');
-
-        const spinnerContainer = document.createElement('tr')
-
-        spinnerContainer.id = "spinner-container"
-        spinnerContainer.innerHTML = `
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="mt-3">          
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-
-        `
-
-
-
-
-        table.append(spinnerContainer)
-            loadMoreCourses("202103")
-        
-        firstView = false
-
-        
-    }
-    
-}, { threshold: [1] });
-
-let trArr = document.querySelectorAll('tbody#catalog-body tr')
-
-
-
-
-function startObserve() {
-    observer.unobserve(trArr[trArr.length-1].querySelector('td'))
-    trArr = document.querySelectorAll('tbody#catalog-body tr')
-    firstView = true
-    if (document.querySelector('input#searchBar').value === "") {
-    console.log('<%= params[:search_val]%>')
-
-        observer.observe(trArr[trArr.length-1].querySelector('td'));
-    }
-}
-
-
-
-function loadCourses(season, value) {
-    fetch(`http://127.0.0.1:3000/courses/search/${season}/${value}`)
-    .then(r => r.json())
-    .then(courses => {
-
-        courses.forEach(createOneCourse)
-        // restart the observation after new data loaded
-        startObserve()
-
-
-        seasons_dropdown.addEventListener('click', event => {
-            if (event.target.matches('li.season')) {
-                const season = parseInt(event.target.dataset.id)
-            
-                window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
-            }
-        })
-
-    })
-}
 
 function filterGut() {
     
@@ -430,37 +299,62 @@ function filterGut() {
 }
 
 // observe on page load 
-startObserve()
+
 
 // ADD EVENT SEARCH LISTENER
+
+function search() {
+    
+    const searchBar = document.querySelector('input#searchBar')
+    const filter = searchBar.value.toUpperCase()
+    const rows = document.querySelectorAll("tbody#catalog-body tr.course")
+
+    // iterate thru each table row, if the row has a search term in a td
+    // show it, else make its style hidden
+    for (let i = 0; i < rows.length; i++) {
+        const codeEle = rows[i].getElementsByTagName("td")[0]
+        const titleEle = rows[i].getElementsByTagName("td")[1]
+        const profEle = rows[i].getElementsByTagName("td")[2]
+
+        const txtValueCode = codeEle.textContent || codeEle.innerText
+        const txtValueTitle= titleEle.textContent || titleEle.innerText
+        const txtValueProf = profEle.textContent || profEle.innerText
+
+        if (txtValueCode.toUpperCase().indexOf(filter) > -1 || txtValueTitle.toUpperCase().indexOf(filter) > -1 || txtValueProf.toUpperCase().indexOf(filter) > -1) {
+            rows[i].style.display = ""
+        } else {
+            rows[i].style.display = "none"
+        }
+    } 
+}
 
 const searchBar = document.querySelector('form#searchForm')
 
 searchBar.addEventListener('submit', event => {
     event.preventDefault()
 
-    table.innerHTML = ""
-    const searchInput = document.querySelector('input#searchBar')
-    const title = document.querySelector('h1#table-title')
+    search()
 
-    const season = title.dataset.id
-    loadCourses(season, searchInput.value)
+    // loadCourses(season, searchInput.value)
 })
 
 const gutSwitch = document.querySelector('div.form-switch')
+
+
 
 gutSwitch.addEventListener('click', event => {
     const title = document.querySelector('h1#table-title')
 
     const season = title.dataset.id
 
+    gutActive ? gutActive = false : gutActive = true
+
     filterGut()
-    startObserve()
-    loadMoreCourses(season, true)
+    loadMoreCourses(season)
     
 
 })
 
-
+loadMoreCourses("202103")
     
 </script>
