@@ -28,9 +28,12 @@
 <script>
     const OFFSET = 500
     let gutActive = false
+    let coursesLoaded = false
     const body = document.querySelector('div#main-body')
     const table = document.querySelector('tbody#catalog-body')
     const seasons_dropdown = document.querySelector('ul#seasons-btn')
+    const gutSwitch = document.querySelector('div.form-switch input')
+
 
     body.addEventListener('click', event => {
         
@@ -319,7 +322,8 @@ function search() {
     
     const searchBar = document.querySelector('input#searchBar')
     const filter = searchBar.value.toUpperCase()
-    const rows = document.querySelectorAll("tbody#catalog-body tr.course")
+    const rows = document.querySelectorAll('tbody#catalog-body tr.course:not([style*="display: none;"]')
+    console.log(rows);
 
     // iterate thru each table row, if the row has a search term in a td
     // show it, else make its style hidden
@@ -344,13 +348,34 @@ const searchBar = document.querySelector('form#searchForm')
 
 searchBar.addEventListener('submit', event => {
     event.preventDefault()
+    // filterGut(undo=true)
 
-    search()
+    console.log(event.target[0].value)
+
+    if (event.target[0].value === "") {
+        filterGut(undo=true)
+        if (gutActive) {
+            
+            filterGut()
+        }
+
+
+        
+        // search()
+    } else {
+        // filterGut(undo=true)
+
+        search()
+    }
+
+
+    // if (gutActive) {
+    //     filterGut()
+    // }
 
     // loadCourses(season, searchInput.value)
 })
 
-const gutSwitch = document.querySelector('div.form-switch')
 
 
 
@@ -363,12 +388,16 @@ gutSwitch.addEventListener('click', event => {
     if (gutActive) {
         filterGut(undo=true)
         gutActive = false
+        
         gutSwitch.classList.add('active')
-        loadMoreCourses(season)
+        // loadMoreCourses(season)
     } else {
         gutActive = true
         gutSwitch.classList.remove('active')
-        loadMoreCourses(season, true)
+        if (coursesLoaded === false) {
+            loadMoreCourses(season, true)
+            coursesLoaded = true
+        }
     }
 
     
