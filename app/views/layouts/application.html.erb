@@ -30,16 +30,25 @@
                      </div>
                      <div class="card-body">
                         <h5 class="card-title pb-2 border-bottom">Find Guts!</h5>
-                        <form class="form-check form-switch" action="/courses" method="GET">
+                        <form class="form-check form-switch p-0" action="/courses" method="GET">
                            <div class="form-check form-switch">
-                              <input name="guts_switch" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                              <input name="guts_switch" class="form-check-input pe-0 me-0" type="checkbox" id="flexSwitchCheckDefault">
+                              <span style="font-size: .8rem">Guts Only</span>
                            </div>
-                           <div class="btn-group dropend">
+                           <div class="btn-group dropend sort-dropdown">
                               <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                 Dropright
+                                 Sort By 
                               </button>
                               <ul class="dropdown-menu">
                                  <!-- Dropdown menu links -->
+                                 <li class="dropdown-item">Course Code</li>
+                                 <li class="dropdown-item">Gut Index</li>
+                                 <li class="dropdown-item">Overall Rating</li>
+                                 <li class="dropdown-item">Professor Rating</li>
+                                 <li class="dropdown-item">Work Rating</li>
+
+             
+
                               </ul>
                            </div>
                            <button type="submit" class="btn btn-primary">Submit</button>
