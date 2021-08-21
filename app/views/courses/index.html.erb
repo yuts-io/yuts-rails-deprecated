@@ -33,6 +33,10 @@
     const table = document.querySelector('tbody#catalog-body')
     const seasons_dropdown = document.querySelector('ul#seasons-btn')
     const gutSwitch = document.querySelector('div.form-switch input')
+    const searchBar = document.querySelector('form#searchForm')
+
+    const sortList = document.querySelector('ul.sort-list')
+
 
 
     body.addEventListener('click', event => {
@@ -344,7 +348,54 @@ function search() {
     } 
 }
 
-const searchBar = document.querySelector('form#searchForm')
+
+function sortTable(sortedVal) {
+  let table, rows, switching, i, x, y, shouldSwitch, switchIndex;
+  switching = true;
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = document.querySelectorAll('tbody#catalog-body tr.course')
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+
+      if (sortedVal === "Gut Index") {
+          switchIndex = 3
+      } else if (sortedVal === "Overall Rating"){
+          switchIndex = 7
+      } else if (sortedVal === "Professor Rating"){
+          switchIndex = 9
+      } else if (sortedVal === "Professor Rating"){
+          switchIndex = 12
+      }
+
+
+
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[switchIndex];
+      y = rows[i + 1].getElementsByTagName("TD")[switchIndex];
+      // Check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        // If so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
 
 searchBar.addEventListener('submit', event => {
     event.preventDefault()
@@ -403,6 +454,13 @@ gutSwitch.addEventListener('click', event => {
     
     
 
+})
+
+sortList.addEventListener('click', event => {
+    if (event.target.matches('li')) {
+        const text = event.target.textContent
+        sortTable(text)
+    }
 })
 
 // loadMoreCourses("202103")
