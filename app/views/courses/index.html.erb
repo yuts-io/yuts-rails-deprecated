@@ -255,21 +255,7 @@ function ordinal(n) {
     return n + (s[(v-20)%10] || s[v] || s[0]);
 }
 
-
-
-
-// LOAD COURSES AFTER OFFSET
-function loadMoreCourses(season) {
-    fetch(`http://127.0.0.1:3000/courses/${season}/${OFFSET}/load_more`)
-    .then(r => r.json())
-    .then(courses => {
-        courses.forEach(createOneCourse)
-    })
-}
-
-
-
-function filterGut() {
+function filterGut(undo=false) {
     
     const searchBar = document.querySelector('input#searchBar')
     const filter = searchBar.value.toUpperCase()
@@ -296,7 +282,33 @@ function filterGut() {
             rows[i].style.display = "none"
         }
     } 
+
+    if (undo) {
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].style.display = ""
+        }
+    } 
+
 }
+
+
+// LOAD COURSES AFTER OFFSET
+function loadMoreCourses(season, gutFilter=false) {
+    fetch(`http://127.0.0.1:3000/courses/${season}/${OFFSET}/load_more`)
+    .then(r => r.json())
+    .then(courses => {
+        
+        courses.forEach(createOneCourse)
+
+        if (gutFilter) {
+            filterGut()
+        }
+    })
+}
+
+
+
+
 
 // observe on page load 
 
@@ -346,15 +358,24 @@ gutSwitch.addEventListener('click', event => {
     const title = document.querySelector('h1#table-title')
 
     const season = title.dataset.id
-
-    gutActive ? gutActive = false : gutActive = true
-
     filterGut()
-    loadMoreCourses(season)
+
+    if (gutActive) {
+        filterGut(undo=true)
+        gutActive = false
+        gutSwitch.classList.add('active')
+        loadMoreCourses(season)
+    } else {
+        gutActive = true
+        gutSwitch.classList.remove('active')
+        loadMoreCourses(season, true)
+    }
+
+    
     
 
 })
 
-loadMoreCourses("202103")
+// loadMoreCourses("202103")
     
 </script>
