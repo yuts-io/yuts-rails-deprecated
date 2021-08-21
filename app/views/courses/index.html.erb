@@ -26,7 +26,7 @@
 
 <% end %>
 <script>
-    const OFFSET = 150
+    const OFFSET = 1000
     const body = document.querySelector('div#main-body')
     const table = document.querySelector('tbody#catalog-body')
     const seasons_dropdown = document.querySelector('ul#seasons-btn')
@@ -254,13 +254,44 @@ function ordinal(n) {
     return n + (s[(v-20)%10] || s[v] || s[0]);
 }
 
-function loadMoreCourses(season) {
+
+
+
+function loadMoreCourses(season, filterGut=false) {
     fetch(`http://127.0.0.1:3000/courses/${season}/${OFFSET}/load_more`)
     .then(r => r.json())
     .then(courses => {
+    function filterGut() {
+    
+    const searchBar = document.querySelector('input#searchBar')
+    const filter = searchBar.value.toUpperCase()
+    const rows = document.querySelectorAll("tbody#catalog-body tr.course")
+
+    // iterate thru each table row, if the row has a search term in a td
+    // show it, else make its style hidden
+    for (let i = 0; i < rows.length; i++) {
+        // const codeEle = rows[i].getElementsByTagName("td")[0]
+        // const titleEle = rows[i].getElementsByTagName("td")[1]
+        // const profEle = rows[i].getElementsByTagName("td")[2]
+
+        const guttinessEle = rows[i].getElementsByTagName("td")[4]
+
+        // const txtValueCode = codeEle.textContent || codeEle.innerText
+        // const txtValueTitle= titleEle.textContent || titleEle.innerText
+        // const txtValueProf = profEle.textContent || profEle.innerText
+
+        const txtValueGuttiness = guttinessEle.textContent || guttinessEle.innerText
+
+        if (txtValueGuttiness === "Gut") {
+            rows[i].style.display = ""
+        } else {
+            rows[i].style.display = "none"
+        }
+    } 
+}
 
         courses.forEach(createOneCourse)
-        document.querySelector('tr#spinner-container').remove()
+        // document.querySelector('tr#spinner-container').remove()
 
 
 
@@ -271,7 +302,9 @@ function loadMoreCourses(season) {
                 window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
             }
         })
-
+        if (filterGut) {
+            filterGut()
+        }
 
     })
 }
@@ -345,6 +378,7 @@ function startObserve() {
 }
 
 
+
 function loadCourses(season, value) {
     fetch(`http://127.0.0.1:3000/courses/search/${season}/${value}`)
     .then(r => r.json())
@@ -395,7 +429,6 @@ function filterGut() {
     } 
 }
 
-
 // observe on page load 
 startObserve()
 
@@ -417,8 +450,14 @@ searchBar.addEventListener('submit', event => {
 const gutSwitch = document.querySelector('div.form-switch')
 
 gutSwitch.addEventListener('click', event => {
+    const title = document.querySelector('h1#table-title')
+
+    const season = title.dataset.id
+
     filterGut()
     startObserve()
+    loadMoreCourses(season, true)
+    
 
 })
 
