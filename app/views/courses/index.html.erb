@@ -313,8 +313,8 @@ function loadMoreCourses(season, gutFilter=false) {
     })
 }
 
-function loadSortCourses(season, sorter) {
-    fetch(`http://127.0.0.1:3000/courses/sort_init/${season}/${sorter}`)
+function loadSortCourses(season, sorter, direction) {
+    fetch(`http://127.0.0.1:3000/courses/sort_init/${season}/${sorter}/${direction}`)
     .then(r => r.json())
     .then(courses => {
         
@@ -475,15 +475,15 @@ sortList.addEventListener('click', event => {
 
         table.innerHTML = ""
         if (sorter === "Gut Index") {
-            loadSortCourses(season, "gut_index")
+            loadSortCourses(season, "gut_index", "DESC")
         } else if (sorter === "Overall Rating") {
-            loadSortCourses(season, "average_rating")
+            loadSortCourses(season, "average_rating", "DESC")
         } else if (sorter === "Professor Rating") {
-            loadSortCourses(season, "average_professor")
+            loadSortCourses(season, "average_professor", "DESC")
         } else if (sorter === "Work Rating") {
-            loadSortCourses(season, "average_workload")
+            loadSortCourses(season, "average_workload", "ASC")
         } else if (sorter === "Course Code") {
-            loadSortCourses(season, "course_code")
+            loadSortCourses(season, "course_code", "ASC")
         }
         
     }
