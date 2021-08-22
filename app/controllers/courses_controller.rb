@@ -46,6 +46,16 @@ class CoursesController < ApplicationController
       @courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(500)
     end
 
+    def sort_init
+      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} DESC").limit(150)
+      render json: courses
+    end
+
+    def sort_more
+      courses = Course.where("season_code = #{params[:season]}").order("#{params[:sorter]} ASC").offset(150)
+      render json: courses
+    end
+
     private
 
     def require_logged_in

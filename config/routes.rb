@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/courses/sort_init/:season/:sorter', to: 'courses#sort_init'
+  get '/courses/sort_more/:season/:sorter', to: 'courses#sort_more'
   get '/courses/search/:season', to: 'courses#search'
   get '/courses/:season/:amount/load_more', to: 'courses#load'
   get 'auth/:provider/callback', to: 'sessions#googleAuth'

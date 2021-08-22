@@ -94,7 +94,7 @@
         }
 
         // create the rest of the eles w/ artisianal method
-        createTableEle(course, "average_rating_same_professors", tr)
+        createTableEle(course, "average_rating", tr)
         createTableEle(course, "average_professor", tr)
         createTableEleClassed(classifyProf(course), tr)
         createTableEle(course, "professor_percentile", tr, true)
@@ -313,7 +313,18 @@ function loadMoreCourses(season, gutFilter=false) {
     })
 }
 
+function loadSortCourses(season, sorter) {
+    fetch(`http://127.0.0.1:3000/courses/sort_init/${season}/${sorter}`)
+    .then(r => r.json())
+    .then(courses => {
+        
+        courses.forEach(createOneCourse)
 
+        if (gutFilter) {
+            filterGut()
+        }
+    })
+}
 
 
 
@@ -458,8 +469,23 @@ gutSwitch.addEventListener('click', event => {
 
 sortList.addEventListener('click', event => {
     if (event.target.matches('li')) {
-        const text = event.target.textContent
-        sortTable(text)
+        const sorter = event.target.textContent
+        const title = document.querySelector('h1#table-title')
+        const season = title.dataset.id
+
+        table.innerHTML = ""
+        if (sorter === "Gut Index") {
+            loadSortCourses(season, "gut_index")
+        } else if (sorter === "Overall Rating") {
+            loadSortCourses(season, "average_rating")
+        } else if (sorter === "Professor Rating") {
+            loadSortCourses(season, "average_professor")
+        } else if (sorter === "Work Rating") {
+            loadSortCourses(season, "average_workload")
+        } else if (sorter === "Course Code") {
+            loadSortCourses(season, "course_code")
+        }
+        
     }
 })
 
