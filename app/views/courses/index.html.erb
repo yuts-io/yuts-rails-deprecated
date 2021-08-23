@@ -37,10 +37,10 @@
 
     const sortList = document.querySelector('ul.sort-list')
 
-    const title = document.querySelector('h1#table-title')
+    const pageTitle = document.querySelector('h1#table-title')
 
-    title.textContent = "<%= Course.season_to_str(@courses.first.season_code) %>" + " Catalog"
-    title.dataset.id = "<%= @courses.first.season_code %>"
+    pageTitle.textContent = "<%= Course.season_to_str(@courses.first.season_code) %>" + " Catalog"
+    pageTitle.dataset.id = "<%= @courses.first.season_code %>"
 
 
     body.addEventListener('click', event => {
@@ -368,53 +368,6 @@ function search() {
     } 
 }
 
-
-function sortTable(sortedVal) {
-  let table, rows, switching, i, x, y, shouldSwitch, switchIndex;
-  switching = true;
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = document.querySelectorAll('tbody#catalog-body tr.course')
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-
-      if (sortedVal === "Gut Index") {
-          switchIndex = 3
-      } else if (sortedVal === "Overall Rating"){
-          switchIndex = 7
-      } else if (sortedVal === "Professor Rating"){
-          switchIndex = 9
-      } else if (sortedVal === "Professor Rating"){
-          switchIndex = 12
-      }
-
-
-
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[switchIndex];
-      y = rows[i + 1].getElementsByTagName("TD")[switchIndex];
-      // Check if the two rows should switch place:
-      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        // If so, mark as a switch and break the loop:
-        shouldSwitch = true;
-        break;
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-    }
-  }
-}
 
 
 searchBar.addEventListener('submit', event => {

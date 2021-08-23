@@ -11,16 +11,6 @@ class CoursesController < ApplicationController
 
     end
 
-    def search
-      # byebug
-      if params[:search_val] != nil
-        courses = Course.search(params[:search_val])
-      else
-        courses = Course.search(nil)
-      end
-      render json: courses
-    end 
-
     def show
       @course = Course.find_by(id: params[:id])
     end
@@ -28,10 +18,6 @@ class CoursesController < ApplicationController
     def load 
       courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).offset(500)
       render json: courses
-    end
-
-    def new_season_home
-      @courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(500)
     end
 
     def sort_init
