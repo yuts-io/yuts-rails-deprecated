@@ -54,7 +54,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <% if @course.cleanOneStat("gut_index") != nil %>
+                                <% if String(@course.cleanOneStat("gut_index")) != "N/A" %>
                                     <%= String(@course.cleanOneStat("gut_index")) + "%" %>
                                 <% else %>
                                     <%= @course.cleanOneStat("gut_index") %>

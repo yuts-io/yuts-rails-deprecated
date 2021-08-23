@@ -497,7 +497,11 @@ function search(undo=false) {
         } else {
             rows[i].style.display = "none"
         }
+
+
     } 
+
+
 
     if (undo) {
         for (let i = 0; i < rows.length; i++) {
@@ -568,15 +572,14 @@ searchBar.addEventListener('submit', event => {
     event.preventDefault()
     filterGut(undo=true)
 
+    if (gutActive === true) {
+        filterGut()
+    } 
+
 
     console.log(event.target[0].value)
 
-    if (event.target[0].value === "") {
-        filterGut(undo=true)
-        if (gutActive) {
-            filterGut()
-        }
-    } else {
+    if (event.target[0].value != "") {   
         search()
     }
 
@@ -618,7 +621,7 @@ gutSwitch.addEventListener('click', event => {
 
 sortList.addEventListener('click', event => {
     if (event.target.matches('li')) {
-        // filterGut(undo=true)
+
 
         if (coursesLoaded === true) {
             coursesLoaded = false
@@ -638,45 +641,173 @@ sortList.addEventListener('click', event => {
         if (sorter === "Gut Index") {
             loadSortCourses(season, "gut_index", "DESC")
             if (coursesLoaded === false) {
-            const spinnerContainer = document.createElement('tr')
+                const spinnerContainer = document.createElement('tr')
 
-            spinnerContainer.id = "spinner-container"
-            spinnerContainer.innerHTML = `
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="mt-3">          
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            `
-            table.append(spinnerContainer)
+                spinnerContainer.id = "spinner-container"
+                spinnerContainer.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="mt-3">          
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `
+                table.append(spinnerContainer)
                 loadSortMoreCourses(season, "gut_index", "DESC")
                 coursesLoaded = true
             }
         } else if (sorter === "Overall Rating") {
             loadSortCourses(season, "average_rating", "DESC")
+                        if (coursesLoaded === false) {
+                const spinnerContainer = document.createElement('tr')
+
+                spinnerContainer.id = "spinner-container"
+                spinnerContainer.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="mt-3">          
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `
+                table.append(spinnerContainer)
+                loadSortMoreCourses(season, "average_rating", "DESC")
+                coursesLoaded = true
+            }
         } else if (sorter === "Professor Rating") {
             loadSortCourses(season, "average_professor", "DESC")
+                        if (coursesLoaded === false) {
+                const spinnerContainer = document.createElement('tr')
+
+                spinnerContainer.id = "spinner-container"
+                spinnerContainer.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="mt-3">          
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `
+                table.append(spinnerContainer)
+                loadSortMoreCourses(season, "average_professor", "DESC")
+                coursesLoaded = true
+            }
         } else if (sorter === "Work Rating") {
             loadSortCourses(season, "average_workload", "ASC")
+                        if (coursesLoaded === false) {
+                const spinnerContainer = document.createElement('tr')
+
+                spinnerContainer.id = "spinner-container"
+                spinnerContainer.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="mt-3">          
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `
+                table.append(spinnerContainer)
+                loadSortMoreCourses(season, "average_workload", "ASC")
+                coursesLoaded = true
+            }
         } else if (sorter === "Course Code") {
             loadSortCourses(season, "course_code", "ASC")
+                        if (coursesLoaded === false) {
+                const spinnerContainer = document.createElement('tr')
+
+                spinnerContainer.id = "spinner-container"
+                spinnerContainer.innerHTML = `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="mt-3">          
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                `
+                table.append(spinnerContainer)
+                loadSortMoreCourses(season, "course_code", "ASC")
+                coursesLoaded = true
+            }
         }
 
 
