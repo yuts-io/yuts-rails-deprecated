@@ -15,6 +15,6 @@ class SessionsController < ApplicationController
         @user.google_refresh_token = refresh_token if refresh_token.present?
         @user.save
         session[:user_id] = @user.id
-        redirect_to '/courses'
+        redirect_to '/courses/season/202103'
       end
 end

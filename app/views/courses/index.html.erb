@@ -37,6 +37,10 @@
 
     const sortList = document.querySelector('ul.sort-list')
 
+    const title = document.querySelector('h1#table-title')
+
+    title.textContent = "<%= Course.season_to_str(@courses.first.season_code) %>" + " Catalog"
+    title.dataset.id = "<%= @courses.first.season_code %>"
 
 
     body.addEventListener('click', event => {
@@ -51,10 +55,15 @@
     seasons_dropdown.addEventListener('click', event => {
         if (event.target.matches('li.season')) {
             const season = parseInt(event.target.dataset.id)
+            // const title = document.querySelector('h1#table-title')
+
+            // title.dataset.id = event.target.dataset.id
+
+            // title.textContent = event.target.textContent + " Catalog"
 
             
         
-            window.location.replace(`http://127.0.0.1:3000/courses/${season}/new_season_home`)
+            window.location.replace(`http://127.0.0.1:3000/courses/season/${season}`)
         }
     })
 

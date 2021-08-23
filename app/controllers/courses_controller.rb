@@ -3,23 +3,11 @@ class CoursesController < ApplicationController
     def index
       # byebug
 
-      if params[:search] != nil
-        session[:search] = params[:search]
-        @courses = Course.search(session[:search], "202103")
+      if params[:season] != nil
+        @courses = Course.search(nil, params[:season])
       else
         @courses = Course.search(nil, "202103")
       end
-
-      if params[:guts_switch]
-        @courses = @courses.where("gut_index > 80").order(course_code: :asc)
-      end
-
-      # byebug
-      
-      
-        # byebug
-        # @courses = @courses.filter_by_gut_index if params[:guts_switch] == "on"
-    
 
     end
 
