@@ -21,12 +21,12 @@ class CoursesController < ApplicationController
     end
 
     def sort_init
-      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} #{params[:direction]}").limit(150)
+      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} #{params[:direction]}").limit(250)
       render json: courses
     end
 
     def sort_more
-      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} #{params[:direction]}").offset(150)
+      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} #{params[:direction]}").offset(250)
       render json: courses
     end
 
