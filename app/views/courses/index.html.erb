@@ -314,7 +314,7 @@ var observer = new IntersectionObserver(function(entries) {
 
         
 
-        if (!coursesLoaded) {
+        if (coursesLoaded === false) {
             table.append(spinnerContainer)
             const sorter = document.querySelector('ul#sorter-list li.active').textContent
 
@@ -348,11 +348,11 @@ function startObserve() {
     observer.unobserve(trArr[trArr.length-1].querySelector('td'))
     trArr = document.querySelectorAll('tbody#catalog-body tr:not([style*="display: none;"]')
 
-    if (document.querySelector('input#searchBar').value === "") {
+    // if (document.querySelector('input#searchBar').value === "") {
     console.log('<%= params[:search_val]%>')
 
         observer.observe(trArr[trArr.length-1].querySelector('td'));
-    }
+    // } 
 }
 
 startObserve()
@@ -493,7 +493,9 @@ function search() {
         }
     } 
 
-    startObserve()
+    if (!coursesLoaded) {
+        startObserve()
+    }
 }
 
 
@@ -512,6 +514,7 @@ searchBar.addEventListener('submit', event => {
     } else {
         search()
     }
+
 })
 
 
@@ -525,7 +528,7 @@ gutSwitch.addEventListener('click', event => {
     
 
     if (gutActive) {
-        // filterGut(undo=true)
+        filterGut(undo=true)
         gutActive = false
         
         gutSwitch.classList.add('active')
