@@ -468,7 +468,7 @@ function loadSortMoreCourses(season, sorter, direction) {
 
 // ADD EVENT SEARCH LISTENER
 
-function search() {
+function search(undo=false) {
     
     const searchBar = document.querySelector('input#searchBar')
     const filter = searchBar.value.toUpperCase()
@@ -493,8 +493,66 @@ function search() {
         }
     } 
 
+    if (undo) {
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].style.display = ""
+        }
+    } 
+
+    
+
     if (!coursesLoaded) {
-        startObserve()
+        if (document.querySelectorAll('tbody#catalog-body tr.course:not([style*="display: none;"]').length > 0) {
+            startObserve()
+        } else {
+            const spinnerContainer = document.createElement('tr')
+
+            spinnerContainer.id = "spinner-container"
+            spinnerContainer.innerHTML = `
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="mt-3">          
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            `
+            table.append(spinnerContainer)
+            const sorter = document.querySelector('ul#sorter-list li.active').textContent
+
+            const title = document.querySelector('h1#table-title')
+
+            const season = title.dataset.id
+
+            if (sorter === "Gut Index") {
+                loadSortMoreCourses(season, "gut_index", "DESC")
+            } else if (sorter === "Overall Rating") {
+                loadSortMoreCourses(season, "average_rating", "DESC")
+            } else if (sorter === "Professor Rating") {
+                loadSortMoreCourses(season, "average_professor", "DESC")
+            } else if (sorter === "Work Rating") {
+                loadSortMoreCourses(season, "average_workload", "ASC")
+            } else if (sorter === "Course Code") {
+                loadSortMoreCourses(season, "course_code", "ASC")
+            }
+
+            coursesLoaded = true
+        }
     }
 }
 
@@ -502,7 +560,8 @@ function search() {
 
 searchBar.addEventListener('submit', event => {
     event.preventDefault()
-    // filterGut(undo=true)
+    filterGut(undo=true)
+
 
     console.log(event.target[0].value)
 
