@@ -367,7 +367,15 @@ function filterGut(undo=false) {
 
     // iterate thru each table row, if the row has a search term in a td
     // show it, else make its style hidden
-    for (let i = 0; i < rows.length; i++) {
+
+
+    if (undo) {
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].style.display = ""
+        }
+    }  else {
+
+        for (let i = 0; i < rows.length; i++) {
         // const codeEle = rows[i].getElementsByTagName("td")[0]
         // const titleEle = rows[i].getElementsByTagName("td")[1]
         // const profEle = rows[i].getElementsByTagName("td")[2]
@@ -386,12 +394,7 @@ function filterGut(undo=false) {
             rows[i].style.display = "none"
         }
     } 
-
-    if (undo) {
-        for (let i = 0; i < rows.length; i++) {
-            rows[i].style.display = ""
-        }
-    } 
+    }
 
     if (!coursesLoaded) {
         startObserve()
@@ -425,6 +428,8 @@ function loadSortCourses(season, sorter, direction) {
         
         courses.forEach(createOneCourse)
 
+        filterGut(undo=true)
+
         if (gutActive) {
             filterGut()
         }
@@ -439,8 +444,9 @@ function loadSortMoreCourses(season, sorter, direction) {
     fetch(`http://127.0.0.1:3000/courses/sort_more/${season}/${sorter}/${direction}`)
     .then(r => r.json())
     .then(courses => {
-        
         courses.forEach(createOneCourse)
+
+        filterGut(undo=true)
 
         if (gutActive) {
             filterGut()
@@ -612,6 +618,7 @@ gutSwitch.addEventListener('click', event => {
 
 sortList.addEventListener('click', event => {
     if (event.target.matches('li')) {
+        filterGut(undo=true)
 
         if (coursesLoaded === true) {
             coursesLoaded = false
@@ -639,6 +646,8 @@ sortList.addEventListener('click', event => {
         } else if (sorter === "Course Code") {
             loadSortCourses(season, "course_code", "ASC")
         }
+
+        // startObserve()
         
     }
 })

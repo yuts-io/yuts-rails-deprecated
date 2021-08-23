@@ -54,7 +54,12 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <%= @course.cleanOneStat("average_rating") %>
+                                <% if @course.cleanOneStat("gut_index") != nil %>
+                                    <%= String(@course.cleanOneStat("gut_index")) + "%" %>
+                                <% else %>
+                                    <%= @course.cleanOneStat("gut_index") %>
+                                <% end %>
+
                             </div>
                             <div class="col">
                                 <%= @course.cleanOneStat("average_professor") %>
@@ -170,19 +175,19 @@
                 <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_mean") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("gut_index_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_median") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("gut_index_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("gut_index_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("gut_index_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_mode") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("gut_index_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_range") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("gut_index_range") %></div>
             </div>
         </div>
         <div class="m-auto py-1 justify-content-center row">
@@ -191,19 +196,19 @@
                 <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_mean") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_professor_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_median") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_professor_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("average_professor_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_professor_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_mode") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_professor_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_range") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_professor_range") %></div>
             </div>
         </div>
         <div class="m-auto py-1 justify-content-center row">
@@ -212,19 +217,19 @@
                 <div class="mx-auto">Section <%= @course.checkIfBlank("section") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_mean") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_workload_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_median") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_workload_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("average_workload_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_workload_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_mode") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_workload_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_range") %></div>
+                <div><%= Course.where("season_code = ? AND gut_index IS NOT NULL AND average_professor IS NOT NULL AND average_workload IS NOT NULL", "#{@course.season_code}").first.cleanOneStat("average_workload_range") %></div>
             </div>
         </div>
         <div class="m-auto pt-4 pb-1 justify-content-end row">
@@ -248,19 +253,19 @@
                 
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_subject_mean") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("gut_index_subject_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_subject_median") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("gut_index_subject_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("gut_index_subject_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("gut_index_subject_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_subject_mode") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("gut_index_subject_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("gut_index_subject_range") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("gut_index_subject_range") %></div>
             </div>
         </div>
         <div class="m-auto mt-1 py-1 justify-content-center row">
@@ -269,19 +274,19 @@
                 
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_subject_mean") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_subject_median") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("average_professor_subject_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_subject_mode") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_professor_subject_range") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_range") %></div>
             </div>
         </div>
         <div class="m-auto mt-1 py-1 justify-content-center row">
@@ -290,19 +295,19 @@
             
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_subject_mean") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_workload_subject_mean") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_subject_median") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_workload_subject_median") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-2">
-                <div><%= @course.cleanOneStat("average_workload_subject_standard_deviation") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_workload_subject_standard_deviation") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_subject_mode") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_workload_subject_mode") %></div>
             </div>
             <div class="px-1 ml-0 d-flex justify-content-center text-center col-1">
-                <div><%= @course.cleanOneStat("average_workload_subject_range") %></div>
+                <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_workload_subject_range") %></div>
             </div>
         </div>
     </div>
