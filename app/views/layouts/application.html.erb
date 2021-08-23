@@ -29,13 +29,9 @@
                         
                      </div>
                      <div class="card-body">
-                        <h5 class="card-title pb-2 border-bottom">Find Guts!</h5>
+                        <h5 class="card-title pb-2 border-bottom">Advanced Search</h5>
                         <form class="form-check form-switch p-0" action="/courses" method="GET">
-                           <div class="form-check form-switch">
-                              <input name="guts_switch" class="form-check-input pe-0 me-0" type="checkbox" id="flexSwitchCheckDefault">
-                              <span style="font-size: .8rem">Guts Only</span>
-                           </div>
-                           <div class="btn-group dropend sort-dropdown">
+                           <div class="btn-group dropend sort-dropdown mt-2">
                               <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                  Sort By 
                               </button>
@@ -51,7 +47,10 @@
 
                               </ul>
                            </div>
-                           <button type="submit" class="btn btn-primary">Submit</button>
+                           <div class="form-check form-switch mt-2">
+                              <input name="guts_switch" class="form-check-input pe-0 me-0" type="checkbox" id="flexSwitchCheckDefault">
+                              <span style="font-size: .8rem">Guts Only</span>
+                           </div>
                         </form>
                         <p class="card-text mt-3">Ratings are Coursetable ratings</p>
                         <p class="card-text mt-3">The Gut Index is similar to Rotten Tomatoes</p>
