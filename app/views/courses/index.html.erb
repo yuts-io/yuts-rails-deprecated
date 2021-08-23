@@ -4,7 +4,11 @@
         <td><%= course.course_code %></td>
         <td><%= course.title %></td>
         <td><%= course.checkIfBlank("professor_names", true)%></td>
-        <td><%= course.cleanOneStat("gut_index") %></td>
+        <% if String(course.cleanOneStat("gut_index")) != "N/A" %>
+            <td><%= String(course.cleanOneStat("gut_index")) + "%"%></td>
+        <% else %>
+            <td><%= course.cleanOneStat("gut_index")%></td>
+        <% end %>
         <td><%= course.classifyGut %></td>
         <td><%= course.cleanOneStat("gut_percentile", true) %></td>
         <td><%= course.cleanOneStat("gut_percentile_subject", true)%></td>
@@ -313,12 +317,15 @@ function loadMoreCourses(season, gutFilter=false) {
     fetch(`http://127.0.0.1:3000/courses/${season}/${OFFSET}/load_more`)
     .then(r => r.json())
     .then(courses => {
+        const searchBar = document.querySelector('input#searchBar')
         
         courses.forEach(createOneCourse)
 
-        if (gutFilter) {
+        if (gutActive) {
             filterGut()
         }
+
+
     })
 }
 
@@ -329,8 +336,12 @@ function loadSortCourses(season, sorter, direction) {
         
         courses.forEach(createOneCourse)
 
-        if (gutFilter) {
+        if (gutActive) {
             filterGut()
+        }
+
+        if (searchBar.value != "") {
+            search()
         }
     })
 }
@@ -379,25 +390,11 @@ searchBar.addEventListener('submit', event => {
     if (event.target[0].value === "") {
         filterGut(undo=true)
         if (gutActive) {
-            
             filterGut()
         }
-
-
-        
-        // search()
     } else {
-        // filterGut(undo=true)
-
         search()
     }
-
-
-    // if (gutActive) {
-    //     filterGut()
-    // }
-
-    // loadCourses(season, searchInput.value)
 })
 
 
@@ -419,9 +416,13 @@ gutSwitch.addEventListener('click', event => {
         gutActive = true
         gutSwitch.classList.remove('active')
         if (coursesLoaded === false) {
-            loadMoreCourses(season, true)
-            coursesLoaded = true
+            // loadMoreCourses(season, true)
+            // coursesLoaded = true
         }
+    }
+
+    if (searchBar.value != "") {
+        search()
     }
 
     

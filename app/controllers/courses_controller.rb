@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
     end
 
     def sort_more
-      courses = Course.where("season_code = #{params[:season]}").order("#{params[:sorter]} ASC").offset(150)
+      courses = Course.where("season_code = #{params[:season]} AND #{params[:sorter]} IS NOT NULL").order("#{params[:sorter]} #{params[:direction]}").offset(150)
       render json: courses
     end
 
