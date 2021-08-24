@@ -313,3 +313,96 @@
     </div>
     
 </div>
+
+<div class="m-auto row">
+<hr>
+<h3>Do the numbers not tell the whole story? Submit a Review!</h3>
+<h5 class="mt-1">Help Fellow Yalies Out. All self-reported grades are completely anonymous</h5>
+
+<!-- Button trigger modal -->
+<% if @course.user_reviewed?(session[:user_id]) %>
+    <p>test</p>
+<% else %>
+    <div class="px-0 mt-0 mb-3 col-md-5">
+        <button type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Submit a User Review!
+        </button>
+    </div>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Submit User Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/courses/<%= @course.id%>/new_review" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <div class="mb-3">
+            <label for="gut-question" class="col-form-label">Is <%= @course.course_code %> a gut?</label>
+            <select name="gut" class="form-select" id="gut-question" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="enjoyed-question" class="col-form-label">Is <%= @course.course_code %> enjoyable?</label>
+            <select name="enjoyed" class="form-select" id="enjoyed-question" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <% if @course.professor_names.include? ","%>
+                <label for="prof-question" class="col-form-label">Are <%= @course.professor_names %> good professors?</label>
+            <% else %>
+                <label for="prof-question" class="col-form-label">Is <%= @course.professor_names %> a good professor?</label>
+            <% end %>
+            <select name="prof" class="form-select" id="prof-question" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="work-question" class="col-form-label">Is <%= @course.course_code %>'s workload manageable?</label>
+            <select name="work" class="form-select" id="work-question" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="grade-question" class="col-form-label">What grade did you receive for this class?</label>
+            <select name="grade" class="form-select" id="grade-question" aria-label="Default select example">
+                <option selected>N/A</option>
+                <option value="1">A</option>
+                <option value="2">A-</option>
+                <option value="3">B+</option>
+                <option value="4">B</option>
+                <option value="5">B-</option>
+                <option value="6">C+</option>
+                <option value="7">C</option>
+                <option value="8">C-</option>
+                <option value="9">D+</option>
+                <option value="10">D</option>
+                <option value="11">D-</option>
+                <option value="12">F</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+</div>

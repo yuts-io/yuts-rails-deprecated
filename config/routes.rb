@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/courses/sort_init/:season/:sorter/:direction', to: 'courses#sort_init'
   get '/courses/sort_more/:season/:sorter/:direction', to: 'courses#sort_more'
+  post '/courses/:id/new_review', to: 'courses#handle_user_review'
   get '/courses/season/:season', to: 'courses#index'
   get '/courses/search/:season', to: 'courses#search'
   get '/courses/:season/:amount/load_more', to: 'courses#load'

@@ -150,6 +150,15 @@ class Course < ApplicationRecord
         self.pluck("season_code").uniq.sort.reverse
     end
 
+    def user_reviewed?(user_id)
+        result = self.user_reviews.find {|review| review.user_id == user_id}
+        if result != nil
+          return result.submitted_grade
+        else
+          return false
+        end
+    end
+
     
     
 
