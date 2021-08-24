@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_14_233234) do
+ActiveRecord::Schema.define(version: 2021_08_24_015944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,22 @@ ActiveRecord::Schema.define(version: 2021_08_14_233234) do
     t.float "average_workload_same_professors_subject_standard_deviation"
     t.float "average_workload_same_professors_subject_mode"
     t.float "average_workload_same_professors_subject_range"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string "grade"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_reviews", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "student_id"
+    t.boolean "is_a_gut"
+    t.boolean "enjoyed_class"
+    t.boolean "submitted_grade"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

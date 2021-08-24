@@ -1,5 +1,9 @@
 class Course < ApplicationRecord
     scope :filter_by_gut_index, -> { where("gut_index > 80")}
+
+    has_many :user_reviews
+    has_many :users, through: :user_reviews
+    has_many :grades
     
     def self.search(search, season)
         if search
