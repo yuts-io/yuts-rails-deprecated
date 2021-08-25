@@ -151,11 +151,71 @@ class Course < ApplicationRecord
     end
 
     def user_reviewed?(user_id)
-        result = self.user_reviews.find {|review| review.user_id == user_id}
-        if result != nil
-          return result.submitted_grade
+        all_courses = Course.where("course_code = '#{self.course_code}' ")
+
+        all_courses.each { |course| 
+            if (course.users.ids.include? user_id)
+                return true
+            end 
+        }
+
+        false
+    end
+    
+    def get_review(user_id, value)
+        review = self.user_reviews.find {|review| review.user_id == user_id}
+        if review[value] == true
+            "Yes"
         else
-          return false
+            "No"
+        end
+    end 
+
+    def self.get_average_grade(course_code)
+
+
+        all_courses = self.where("course_code = '#{course_code}' ")
+        print all_courses
+        all_grades = []
+
+        all_courses.each { |course| 
+            if (course.grades.count > 0)
+                p course.grades
+                all_grades += course.grades
+            end
+        }
+        if all_grades.size > 0
+            all_grade_vals = all_grades.map { |grade| grade.grade}
+
+            result = (all_grade_vals.sum(0).to_f / all_grades.size).round
+        end
+
+        if result == 1 
+            return "A"
+        elsif result == 2
+            return "A-"
+        elsif result == 3
+            return "B+"
+        elsif result == 4
+            return "B"
+        elsif result == 5
+            return "B-"
+        elsif result == 6
+            return "C+"
+        elsif result == 7
+            return "C"
+        elsif result == 8
+            return "C-"
+        elsif result == 9
+            return "D+"
+        elsif result == 10
+            return "D"
+        elsif result == 11
+            return "D-"
+        elsif result == 12
+            return "F"
+        else
+            return "N/A"
         end
     end
 

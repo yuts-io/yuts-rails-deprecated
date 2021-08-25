@@ -34,8 +34,9 @@ class CoursesController < ApplicationController
       @course = Course.find(params[:id])
 
       user_id = session[:user_id]
-
-      @grade = Grade.create(course_id: params[:id], grade: params[:grade])
+      if params[:grade] != "N/A"
+        @grade = Grade.create(course_id: params[:id], grade: params[:grade])
+      end
 
       if params[:grade] != "N/A"
         grade_submitted = true
@@ -43,7 +44,7 @@ class CoursesController < ApplicationController
         grade_submitted = false
       end
 
-      @user_review = UserReview.create(course_id: params[:id], user_id: user_id, is_a_gut: params[:gut], enjoyed_class: params[:enjoyed], submitted_grade: grade_submitted)
+      @user_review = UserReview.create(course_id: params[:id], user_id: user_id, is_a_gut: params[:gut], enjoyed_class: params[:enjoyed], submitted_grade: grade_submitted, good_prof: params[:prof], good_workload: params[:work])
 
       redirect_to course_path(@course)
     end
