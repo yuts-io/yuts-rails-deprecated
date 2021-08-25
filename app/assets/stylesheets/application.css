@@ -125,3 +125,11 @@
     /* font-style: bold; */
   }
 
+
+  .dynamic-text {
+    font-size: 1vw;
+  }
+
+  .dynamic-text-sm {
+    font-size: .75vw;
+  }
