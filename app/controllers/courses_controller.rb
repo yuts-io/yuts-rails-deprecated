@@ -31,6 +31,7 @@ class CoursesController < ApplicationController
     end
 
     def handle_user_review
+    
       @course = Course.find(params[:id])
 
       user_id = session[:user_id]

@@ -164,11 +164,27 @@ class Course < ApplicationRecord
     
     def get_review(user_id, value)
         review = self.user_reviews.find {|review| review.user_id == user_id}
-        if review[value] == true
-            "Yes"
-        else
-            "No"
-        end
+
+        all_courses = Course.where("course_code = '#{self.course_code}' ")
+
+        all_courses.each { |course| 
+            if (course.users.ids.include? user_id)
+                review = course.user_reviews.find {|review| review.user_id == user_id}
+
+                if review[value] == true 
+                    return "Yes"
+                elsif review[value] == false 
+                    return "No"
+                end
+            end 
+        }
+
+
+        return "No Response"
+
+
+
+
     end 
 
     def self.get_average_grade(course_code)
