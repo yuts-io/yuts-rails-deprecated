@@ -162,12 +162,12 @@
             </div>
         </div>
         <div class="m-auto pb-1 justify-content-center row">
-            <div class="d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
+            <div class="dynamic-text-sm d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
         </div>
         <div class="m-auto py-1 justify-content-center row">
             <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
@@ -240,12 +240,12 @@
             
         </div>
         <div class="m-auto pb-1 justify-content-center row">
-            <div class="d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
-            <div class="d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
+            <div class="dynamic-text-sm d-flex justify-content-center px-0 mr-3 col-5"><span>Attribute</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Mean</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Median</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-2"><span>Standard Deviation</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Mode</span></div>
+            <div class="dynamic-text-sm d-flex ml-0 justify-content-center px-0 col-1"><span>Range</span></div>
         </div>
         <div class="m-auto mt-1 py-1 justify-content-center row">
             <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
@@ -351,17 +351,12 @@
         <div class="h-100 p-5 bg-light border rounded-3">
           <h3>User Submitted Stats (<%= @course.course_code %>)</h3>
           <hr>
+          <div class="row">
+            <h5 class="card-title">Average Grade: <%= Course.get_average_grade(@course.course_code)%></h5>
+            <p><%= Course.count_submitted_grades(@course.course_code) %> <%= "response".pluralize(Course.count_submitted_grades(@course.course_code)) %></p>
+          </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="card">
-                    <div class="card-body pb-4">
-                        <h5 class="card-title">Average Grade</h5>
-                        <h3 class="card-text"><%= Course.get_average_grade(@course.course_code)%></h3>
-                        <p><%= Course.count_submitted_grades(@course.course_code) %> <%= "response".pluralize(Course.count_submitted_grades(@course.course_code)) %></p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Gut</h5>
@@ -371,7 +366,7 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Enjoyed</h5>
@@ -381,10 +376,10 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title dynamic-text">Good Prof</h5>
+                        <h5 class="card-title dynamic-text-lg">Good Prof</h5>
                         <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("good_prof", @course.course_code)%></h4>
                         <p class="card-text mb-0 pb-0 dynamic-text">say Yes</p>
                         <small class="dynamic-text-sm">(<%= Course.count_review_val("good_prof", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_prof", @course.course_code)) %>)</small>
@@ -394,7 +389,7 @@
                 <div class="col-sm-3">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title dynamic-text">Good Workload</h5>
+                        <h5 class="card-title dynamic-text-lg">Good Workload</h5>
                         <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("good_workload", @course.course_code)%></h4>
                         <p class="card-text dynamic-text mb-0 pb-0">say Yes</p>
                         <small class="dynamic-text-sm">(<%= Course.count_review_val("good_workload", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_workload", @course.course_code)) %>)</small>

@@ -124,12 +124,22 @@
     font-family: futura;
     /* font-style: bold; */
   }
+  .dynamic-text-xl {
+    font-size: 1.5vw;
+  }
 
+  .dynamic-text-lg {
+    font-size: 1.15vw;
+  }
 
   .dynamic-text {
     font-size: 1vw;
   }
 
   .dynamic-text-sm {
-    font-size: .75vw;
+    font-size: .9vw;
+  }
+
+  .dynamic-text-xs {
+    font-size: .77vw;
   }
