@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-    before_action :require_logged_in
+    before_action :require_logged_in, :except => [:home]
     def index
       # byebug
 
@@ -50,10 +50,18 @@ class CoursesController < ApplicationController
       redirect_to course_path(@course)
     end
 
+    def home 
+      if session[:user_id]
+        redirect_to '/courses/season/202103'
+      end
+    end
+
     private
 
     def require_logged_in
       redirect_to '/auth/google_oauth2' unless session.include? :user_id
     end
+
+
 
 end
