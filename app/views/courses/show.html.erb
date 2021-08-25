@@ -326,6 +326,14 @@
             <h5 class="mt-1">Your Responses:</h5>
             <ul>
                 <li>Is <%= @course.course_code %> a gut: <%= @course.get_review(session[:user_id], "is_a_gut")%></li>
+                <li>Is <%= @course.course_code %> enjoyable: <%= @course.get_review(session[:user_id], "enjoyed_class")%></li>
+                <% if @course.professor_names.include? ","%>
+                    <li>Are <%= @course.professor_names %> a good Profs: <%= @course.get_review(session[:user_id], "good_prof")%></li>
+                <% else %>
+                    <li>Is <%= @course.professor_names %> a good Prof: <%= @course.get_review(session[:user_id], "good_prof")%></li>
+
+                <% end %>
+                <li>Is <%= @course.course_code %>'s workload manageable: <%= @course.get_review(session[:user_id], "good_workload")%></li>
             </ul>
         <% else %>
             <h3>Help Fellow Yalies Out: Submit a Review!</h3>
@@ -348,44 +356,44 @@
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Average Grade</h5>
-                        <p class="card-text"><%= Course.get_average_grade(@course.course_code)%></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h3 class="card-text"><%= Course.get_average_grade(@course.course_code)%></h3>
+                        <p><%= Course.count_submitted_grades(@course.course_code) %> <%= "response".pluralize(Course.count_submitted_grades(@course.course_code)) %></p>
                     </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">is Gut</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Gut</h5>
+                        <h3 class="card-text"><%= Course.get_percent_yes("is_a_gut", @course.course_code)%></h3>
+                        <p>say Yes (<%= Course.count_review_val("is_a_gut", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("is_a_gut", @course.course_code)) %>)</p>
                     </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Enjoyable</h5>
+                        <h3 class="card-text"><%= Course.get_percent_yes("enjoyed_class", @course.course_code)%></h3>
+                        <p><%= Course.count_review_val("enjoyed_class", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("enjoyed_class", @course.course_code)) %></p>
                     </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Good Prof</h5>
+                        <h3 class="card-text"><%= Course.get_percent_yes("good_prof", @course.course_code)%></h3>
+                        <p><%= Course.count_review_val("good_prof", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_prof", @course.course_code)) %></p>
                     </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">Good Workload</h5>
+                        <h3 class="card-text"><%= Course.get_percent_yes("good_workload", @course.course_code)%></h3>
+                        <p><%= Course.count_review_val("good_workload", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_workload", @course.course_code)) %></p>
                     </div>
                     </div>
                 </div>

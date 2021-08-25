@@ -175,15 +175,14 @@ class Course < ApplicationRecord
 
 
         all_courses = self.where("course_code = '#{course_code}' ")
-        print all_courses
         all_grades = []
 
         all_courses.each { |course| 
             if (course.grades.count > 0)
-                p course.grades
                 all_grades += course.grades
             end
         }
+
         if all_grades.size > 0
             all_grade_vals = all_grades.map { |grade| grade.grade}
 
@@ -216,6 +215,62 @@ class Course < ApplicationRecord
             return "F"
         else
             return "N/A"
+        end
+    end
+
+    def self.count_submitted_grades(course_code)
+        all_courses = self.where("course_code = '#{course_code}' ")
+        all_vals = 0
+
+        all_courses.each { |course| 
+            if (course.grades.size != nil)
+                all_vals += course.grades.size
+            end
+        }
+
+        all_vals
+    end
+
+    def self.count_review_val(value, course_code)
+        all_courses = self.where("course_code = '#{course_code}' ")
+        all_vals = 0
+
+        all_courses.each { |course| 
+
+            course.user_reviews.each {|review|
+                if ([true, false].include? review[value])
+                    all_vals += 1
+                end
+                
+            }
+
+        }
+
+        all_vals
+    end
+
+    def self.get_percent_yes(value, course_code)
+        all_courses = self.where("course_code = '#{course_code}' ")
+        all_vals = 0
+        yes_vals = 0
+
+        all_courses.each { |course| 
+
+            course.user_reviews.each {|review|
+                if ([true, false].include? review[value])
+                    if review[value] == true
+                        yes_vals += 1
+                    end
+                    all_vals += 1
+                end
+                
+            }
+
+        }
+        if all_vals > 0
+            String(((yes_vals.to_f / all_vals) * 100).round) + "%"
+        else
+            "N/A"
         end
     end
 
