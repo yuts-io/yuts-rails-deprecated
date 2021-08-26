@@ -52,7 +52,7 @@
                               <span style="font-size: .75vw">Guts Only</span>
                            </div>
                         </form>
-                        <p class="card-text mt-3">Ratings are Coursetable ratings</p>
+                        <%# <p class="card-text mt-3">Ratings are Coursetable ratings</p>
                         <p class="card-text mt-3">The Gut Index is similar to Rotten Tomatoes</p>
                         <p class="card-text mt-3">A higher Gut Index is better</p>
                         <p class="card-text mt-3">All ranks are percentiles</p>
@@ -60,7 +60,12 @@
                         <p class="card-text mt-3">A higher Prof Rank is better</p>
                         <p class="card-text mt-3">A lower Work Rank is better</p>
                         <p class="card-text mt-3">Subject Ranks compare classes in the same subject</p>
-                        <p class="card-text mt-3">The table header "#" denotes enrollment</p>
+                        <p class="card-text mt-3">The table header "#" denotes enrollment</p> %>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#faq">
+                        FAQs
+                        </button>
+
                      </div>
                      <div class="card-footer text-muted py-3">
                         
@@ -88,7 +93,6 @@
                      </ul>
                   </div>
                </div>
-               <div id="main-body" class="table-responsive dynamic-text-xs" style="overflow-x:auto;">
                   <table class="table table-striped table-sticky table-hover">
                      <thead id="table-head">
                         <tr>
@@ -112,7 +116,7 @@
                            <th scope="col">Skills/Areas</th>
                         </tr>
                      </thead>
-                     <tbody id="catalog-body">
+                     <tbody id="catalog-body" class="x-scroller">
                         <%= yield %>
                      </tbody>
                   </table>
@@ -121,7 +125,57 @@
          </div>
       </div>
 
+
+      <!-- Modal -->
+      <div class="modal fade" id="faq" tabindex="-1" aria-labelledby="faqLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="faqLabel">FAQs</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+                  <div class="modal-body">
+                     <h3>What is Yuts?</h3>
+                     <p>
+                        Yuts offers an effective method for Yalies to find courses both enjoyable and low workload, analyzing information from CourseTable and presenting it in an intuitive interface.
+                     </p>
+                     <h3>What is a Gut?</h3>
+                     <p>
+                        At Yuts, we define a Gut to be a class that is low workload, has a high overall rating, and is taught by a good professor. If a course meets these metrics as taken from CourseTable and has a higher than average subject gut rank, subject class rank, and subject professor rank, we label a class as a Gut.
+                     </p>
+                     <h3>Who Can Use Yuts?</h3>
+                     <p>
+                        All Yale students with a valid NetID can access Yuts. We use Google login and CAS Authentication since CourseTable (our data source) contains information not available to the general public.
+                     </p>
+                     <h3>What is the Gut Index?</h3>
+                     <p>
+                        The Gut Index is a 0-100 scale that attempts to determine the likelihood that a class is a Gut. This determination is made algorithmically using the ratio of total rating to workload, as well as a little statistical weighting.
+                     </p>
+                     <h3>How Does Ranking Work?</h3>
+                     <p>
+                        Ranking is done using the percentile a class, professor, or gut index is in comparison to all Yale classes listed for a semester. Percentiles are calculated using the mean of the percentage of classes less than and less than or equal to the class in any one qualifier.
+                     </p>
+                     <h3>How Does Subject Ranking Work?</h3>
+                     <p>
+                        Subject Ranking uses a percentile of all classes with the same course code as a given class. The logic behind this ranking is fairly simple—sometimes it isn’t fair to compare classes from different majors against each other. A CPSC class will be easier for some, whereas an ENGL class may be easier for others. Thus, the subject percentile attempts to eliminate the variability between classes by isolating comparison—allowing questions like what is the CPSC class with the heaviest workload, the PLSC with the best grader, or the guttiest ECON class to be answered.
+                     </p>
+                     <h3>What Does "Relatively" Mean for Class Difficulty?</h3>
+                     <p>
+                        The relative label is placed on class difficulties that are a bit of a conundrum--the class rank is not very high but the class has a low workload compared to classes in the same subject, or vice versa. Similarly, the “relatively average” label is used when a class has a high class rank but a low class subject rank, or vice versa.
+                     </p>
+                     <h3>What are the Scales of Guttiness, Class Difficulty, and Grader Difficulty?</h3>
+                     <p>
+                        A class can be labelled as gut, relaxed, average, challenging, or grueling in terms of guttiness; a prof can be labelled as a fantastic, great, average, tough, or harsh grader; a workload can be labeled as heavy, average, or light (with the qualifier relative in special cases).
+                     </p>
+                  </div>
+               <div class="modal-footer">
+
+               </div>
+            </div>
+         </div>
+      </div>
+
    </body>
    
 </html>
-</html>
+
