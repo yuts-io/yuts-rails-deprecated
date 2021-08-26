@@ -21,18 +21,19 @@
             <nav id="sidebarMenu" class="bg-white col-md-2 col-lg-1 pt-0 d-md-block sidebar collapse">
                <div class="position-sticky pt-2">
                   <div class="text-center justify-content-center">
-                     <img src="/images/yuts-logo.png" style="max-width:80%; height: auto;">
+                     <img src="/images/yuts-logo.png" style="width: calc(75px + 1.55vw); height: auto;">
                      <p class="px-auto logo dynamic-text-xl"><strong><em>YUTS</em></strong></p>
                   </div>
                   <div class="card text-center mt-3">
                      <div class="card-header py-3">
                         
                      </div>
-                     <div class="card-body">
-                        <p class="pb-2 border-bottom dymanic-text-xs">Advanced Search</p>
+                     <div class="card-body px-0">
+                        <p class="pb-0 mb-0 dymanic-text-xs">Advanced</p>
+                        <p class="pb-2 pt-0 mt-0 border-bottom dymanic-text-xs">Search</p>
                         <form class="form-check form-switch p-0" action="/courses" method="GET">
                            <div class="btn-group dropend sort-dropdown mt-2">
-                              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              <button type="button" style="min-width: 4.5vw; height: auto;" class="dynamic-text-xs btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                  Sort By 
                               </button>
                               <ul class="dropdown-menu sort-list" id="sorter-list">
@@ -47,11 +48,17 @@
 
                               </ul>
                            </div>
-                           <div class="form-check form-switch mt-2">
-                              <input name="guts_switch" class="form-check-input pe-0 me-0" type="checkbox" id="flexSwitchCheckDefault">
-                              <span style="font-size: .75vw">Guts Only</span>
-                           </div>
+
                         </form>
+                           <div class="mt-2">
+                              <span style="font-size: calc(9px + .3vw)">Guts Only</span>
+
+                           </div>
+                           
+                           <div class="form-check form-switch mt-1">
+                              <input name="guts_switch" class="form-check-input ps-0 ms-0" type="checkbox" id="flexSwitchCheckDefault">
+                              
+                           </div>
                         <%# <p class="card-text mt-3">Ratings are Coursetable ratings</p>
                         <p class="card-text mt-3">The Gut Index is similar to Rotten Tomatoes</p>
                         <p class="card-text mt-3">A higher Gut Index is better</p>
@@ -62,7 +69,7 @@
                         <p class="card-text mt-3">Subject Ranks compare classes in the same subject</p>
                         <p class="card-text mt-3">The table header "#" denotes enrollment</p> %>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#faq">
+                        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#faq">
                         FAQs
                         </button>
 
@@ -73,7 +80,7 @@
                   </div>
                </div>
             </nav>
-            <main class="col-md-11 ms-sm-auto col-lg-11 px-md-4 ">
+            <main id='mainDiv' class="pe-6" >
                <div id="title-container" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                   <h1 class="h2" id="table-title" data-id="202103"><!-- dynamic catalog title --></h1>
                   <form class="d-flex" id='searchForm' style="width: 70vmin;">
