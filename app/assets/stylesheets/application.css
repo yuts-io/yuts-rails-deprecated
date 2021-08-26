@@ -133,7 +133,7 @@
   }
 
   .dynamic-text {
-    font-size: 1vw;
+    font-size: calc(9px + .5vw);
   }
 
   .dynamic-text-sm {
@@ -141,6 +141,6 @@
   }
 
   .dynamic-text-xs {
-    font-size: .77vw;
+    font-size: calc(8px + .5vw);
   }
 
