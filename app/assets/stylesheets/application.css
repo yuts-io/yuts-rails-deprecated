@@ -163,3 +163,7 @@
 .stats-ele {
   min-width: 60px !important;
 }
+
+.card-stat {
+  min-width: 120px;
+}

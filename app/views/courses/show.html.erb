@@ -5,7 +5,7 @@
 
     const title = document.querySelector('h1#table-title')
 
-        const button = document.createElement('a')
+    const button = document.createElement('a')
 
     button.innerHTML = '<a class="btn-primary btn btn-sm ms-2 mb-1 me-3" type="button" href="/courses/season/<%= @course.season_code%>">Back to Catalog</a>'
 
@@ -16,6 +16,8 @@
     title.append(button)
 
     title.append('<%= @course.title %>' + " (<%= Course.season_to_str(@course.season_code)%>)")
+
+    title.style.minWidth = "435px"
 
     const searchForm = document.querySelector('form#searchForm')
     const dropdown = document.querySelector('div.dropdown')
@@ -31,14 +33,14 @@
 
 <div class="m-auto row">
     <div class="px-0 mt-0 mb-3 col-xl-5">
-        <div class="mx-auto row">
+        <div class="mx-auto row" style="min-width: 435px;">
             <div><%= @course.description %><wbr></div>
         </div>
-        <div class="m-auto py-2 mt-3 row">
+        <div class="m-auto py-2 mt-3 row" style="min-width: 435px;">
             <div class="card">
                 
                 <div class="card-body" id="back-btn-container">
-                    <h5 class="card-title flex-nowrap"><%= @course.course_code %> Stats<span class="pe-2 mt-2" style="float: right; font-size: .85rem"> Overall Rating: <%= @course.cleanOneStat("average_rating") %></span></h5>
+                    <h5 class="card-title"><%= @course.course_code %> Stats<span class="pe-2 mt-2" style="float: right; font-size: .85rem"> Overall Rating: <%= @course.cleanOneStat("average_rating") %></span></h5>
                     <hr class="mt-1">
                     <div class="container">
                         <div class="row">
@@ -118,7 +120,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-auto pt-4 pb-2 row">
+        <div class="m-auto pt-4 pb-2 row" style="min-width: 435px;">
             <div class="px-0 col-sm-2 col-2"><span>Syllabus</span></div>
             <% if @course.syllabus_url == nil %>
                 <div class="col-sm-4 col-4"><span>N/A</span></div>
@@ -137,20 +139,20 @@
             <div class="col-sm-2 col-2"><%= @course.checkIfBlank("locations_summary", true) %></div>
 
         </div>
-        <div class="m-auto py-2 row">
+        <div class="m-auto py-2 row" style="min-width: 435px;">
             <div class="px-0 col-sm-2 col-2"><span>Professor</span></div>
             <div class="col-sm-4 col-4"><span><%= @course.checkIfBlank("professor_names", true) %></span></div>
             <div class="px-0 col-sm-2 col-2"><span>Meets</span></div>
             <div class="col-sm-4 col-4"><%= @course.checkIfBlank("times_summary", true) %></div>
         </div>
-        <div class="m-auto py-2 row">
+        <div class="m-auto py-2 row" style="min-width: 435px;">
             <div class="px-0 col-sm-2 col-2"><span class="align-middle">Credits</span></div>
             <div class="col-sm-4 col-4"><span class="align-middle"><%= @course.checkIfBlank("credits") %></span></div>
             <div class="px-0 col-sm-2 col-2"><span>Enrollment</span></div>
             <div class="col-sm-4 col-4"><%= @course.checkIfBlank("last_enrollment") %></div>
         </div>
     
-        <div class="m-auto py-2 row">
+        <div class="m-auto py-2 row" style="min-width: 435px;">
             
         </div>
     </div>
@@ -289,7 +291,7 @@
                 <div><%= Course.where("season_code = ? AND subject = ? AND gut_percentile_subject IS NOT NULL AND professor_percentile_subject IS NOT NULL AND workload_percentile_subject IS NOT NULL", "#{@course.season_code}", "#{@course.subject}").first.cleanOneStat("average_professor_subject_range") %></div>
             </div>
         </div>
-        <div class="m-auto mt-1 py-1 justify-content-center row flex-nowrap">
+        <div class="m-auto mt-1 py-1 justify-content-center row flex-nowrap mb-4">
             <div class="px-0 mr-3 text-center col-5" style="flex: 0 0 auto;">
                 <strong><%= @course.subject %> Workload Rating</strong>
             
@@ -338,9 +340,10 @@
         <% else %>
             <h3>Help Fellow Yalies Out: Submit a Review!</h3>
             <hr>
-            <h5 class="mt-1"> All self-reported grades are completely anonymous</h5>
+            <h5 class="mt-1">If you've taken this class before, help the Yale Community by answering 5 quick questions</h5>
+            <h5 class="mt-1"> All self-reported grades are completely anonymous!</h5>
             <div class="px-0 mt-0 mb-3 col-md-5">
-                <button type="button" class="btn btn-primary mt-2 ms-2" style="white-space: nowrap;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-lg btn-primary mt-2 ms-2" style="white-space: nowrap;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Submit a User Review!
                 </button>
             </div>
@@ -356,45 +359,45 @@
             <p><%= Course.count_submitted_grades(@course.course_code) %> <%= "response".pluralize(Course.count_submitted_grades(@course.course_code)) %></p>
           </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 card-stat">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title dynamic-text-lg pb-0 mb-0" style="white-space: nowrap;">Gut</h5>
                         <h5 class="card-title dynamic-text-lg" style="white-space: nowrap;">Class</h5>
-                        <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("is_a_gut", @course.course_code)%></h4>
+                        <h4 class="card-text dynamic-text-lg"><%= Course.get_percent_yes("is_a_gut", @course.course_code)%></h4>
                         <p class="card-text mb-0 dynamic-text-xs pb-0">say Yes</p>
                         <small class="dynamic-text-xxs">(<%= Course.count_review_val("is_a_gut", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("is_a_gut", @course.course_code)) %>)</small>
                     </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 card-stat">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title dynamic-text-lg pb-0 mb-0" style="white-space: nowrap;">Enjoyed</h5>
                         <h5 class="card-title dynamic-text-lg" style="white-space: nowrap;">Class</h5>
-                        <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("enjoyed_class", @course.course_code)%></h4>
+                        <h4 class="card-text dynamic-text-lg"><%= Course.get_percent_yes("enjoyed_class", @course.course_code)%></h4>
                         <p class="card-text dynamic-text-xs mb-0 pb-0">say Yes</p>
                         <small class="dynamic-text-xxs">(<%= Course.count_review_val("enjoyed_class", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("enjoyed_class", @course.course_code)) %>)</small>
                     </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 card-stat">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title dynamic-text-lg pb-0 mb-0" style="white-space: nowrap;">Good</h5>
                         <h5 class="card-title dynamic-text-lg" style="white-space: nowrap;">Prof</h5>
-                        <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("good_prof", @course.course_code)%></h4>
+                        <h4 class="card-text dynamic-text-lg"><%= Course.get_percent_yes("good_prof", @course.course_code)%></h4>
                         <p class="card-text mb-0 pb-0 dynamic-text-xs">say Yes</p>
                         <small class="dynamic-text-xxs">(<%= Course.count_review_val("good_prof", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_prof", @course.course_code)) %>)</small>
                     </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 card-stat">
                     <div class="card">
                     <div class="card-body">
                         <h5 class="card-title dynamic-text-lg pb-0 mb-0" style="white-space: nowrap;">Good</h5>
                         <h5 class="card-title dynamic-text-lg" style="white-space: nowrap;">Workload</h5>
-                        <h4 class="card-text dynamic-text"><%= Course.get_percent_yes("good_workload", @course.course_code)%></h4>
+                        <h4 class="card-text dynamic-text-lg"><%= Course.get_percent_yes("good_workload", @course.course_code)%></h4>
                         <p class="card-text dynamic-text-xs mb-0 pb-0">say Yes</p>
                         <small class="dynamic-text-xxs">(<%= Course.count_review_val("good_workload", @course.course_code) %> <%= "response".pluralize(Course.count_review_val("good_workload", @course.course_code)) %>)</small>
                     </div>
