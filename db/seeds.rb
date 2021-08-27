@@ -191,7 +191,7 @@ Dir.children("./db/ct-data").each do |filename|
 end
 
     # ## OPEN FILE
-    # path = File.join(File.dirname(__FILE__), "/ct-data/202103.json")
+    # path = File.join(File.dirname(__FILE__), "/ct-data/202201.json")
     # courses_raw_data = JSON.parse(File.read(path))
 
     # ## PREPARE DATA
@@ -200,7 +200,7 @@ end
     # clean_data(courses_raw_data)
 
 
-    # season_json_str = "202103.json"
+    # season_json_str = "202201.json"
     # season_code_str = season_json_str[0...6].to_i
     # courses_in_season = Course.all.select {|course| course.season_code == season_code_str}
     
