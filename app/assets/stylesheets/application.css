@@ -155,3 +155,11 @@
     overflow-x: auto; 
     overflow-y: hidden;
 }
+
+.stats-ele-std {
+  min-width: 123px !important;
+}
+
+.stats-ele {
+  min-width: 60px !important;
+}
