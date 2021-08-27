@@ -37,4 +37,3 @@ yarn-debug.log*
 
 /db/ct-data/*
 
-/config/initializers/omniauth.rb
